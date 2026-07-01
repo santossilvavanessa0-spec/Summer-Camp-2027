@@ -1,0 +1,6 @@
+{
+  "name": "Summer Camp 2027",
+  "description": "Site de inscrições e painel administrativo para o retiro de carnaval Summer Camp 2027 da Juventude Convictos - IEQ Inhoaíba.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
