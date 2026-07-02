@@ -63,7 +63,7 @@ export const HIGHLIGHTS: HighlightItem[] = [
   {
     id: 'h-3',
     title: 'Gincanas Radicais',
-    description: 'Circuitos desafiadores, lama, trabalho em equipe e muita adrenalina para agitar as tardes do retiro.',
+    description: 'Circuitos desafiadores, esportes radicais, trabalho em equipe e muita adrenalina para agitar as tardes do retiro.',
     iconName: 'Activity'
   },
   {

@@ -24,9 +24,341 @@ export default function RegistrationForm({ onSuccess, onNavigate }: Registration
   const [medicationsDetails, setMedicationsDetails] = useState('');
   const [emergencyContact, setEmergencyContact] = useState('');
   const [tshirtSize, setTshirtSize] = useState<TshirtSize>(TshirtSize.M);
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PaymentMethod.PIX);
-  const [installments, setInstallments] = useState(1);
-  const [agreeRules, setAgreeRules] = useState(false);
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Checkout • Summer Camp 2027</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f5f7fb;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:40px 20px;
+display:grid;
+grid-template-columns:1fr 380px;
+gap:30px;
+}
+
+.card{
+background:#fff;
+border-radius:18px;
+padding:30px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.logo{
+font-size:30px;
+font-weight:700;
+color:#ff7a00;
+}
+
+.sub{
+color:#777;
+margin-top:8px;
+margin-bottom:25px;
+}
+
+.steps{
+display:flex;
+gap:10px;
+margin-bottom:30px;
+}
+
+.step{
+flex:1;
+height:8px;
+background:#e7e7e7;
+border-radius:20px;
+}
+
+.active{
+background:#ff7a00;
+}
+
+label{
+display:block;
+margin-top:18px;
+font-weight:600;
+font-size:14px;
+}
+
+input,select{
+width:100%;
+padding:15px;
+border-radius:12px;
+border:1px solid #ddd;
+margin-top:6px;
+font-size:15px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.pix{
+background:#fff7ef;
+border:2px solid #ff7a00;
+padding:18px;
+border-radius:15px;
+margin-top:25px;
+}
+
+.pix h3{
+margin-bottom:8px;
+}
+
+button{
+
+margin-top:30px;
+width:100%;
+padding:18px;
+border:none;
+border-radius:14px;
+background:#ff7a00;
+color:white;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+}
+
+.resumo h2{
+margin-bottom:20px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+margin:12px 0;
+}
+
+.total{
+font-size:24px;
+font-weight:700;
+color:#ff7a00;
+margin-top:20px;
+}
+
+.cupom{
+display:flex;
+gap:10px;
+margin-top:20px;
+}
+
+.cupom input{
+flex:1;
+}
+
+.cupom button{
+margin:0;
+padding:14px;
+width:auto;
+}
+
+.info{
+margin-top:25px;
+font-size:14px;
+color:#666;
+line-height:25px;
+}
+
+.badge{
+background:#eefaf1;
+padding:10px;
+border-radius:12px;
+margin-top:20px;
+text-align:center;
+font-weight:600;
+color:#138f42;
+}
+
+@media(max-width:900px){
+
+.container{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="logo">
+🏕 Summer Camp 2027
+</div>
+
+<p class="sub">
+Complete sua inscrição em menos de 1 minuto.
+</p>
+
+<div class="steps">
+<div class="step active"></div>
+<div class="step active"></div>
+<div class="step"></div>
+</div>
+
+<form id="checkout">
+
+<label>Nome Completo</label>
+<input required>
+
+<label>Email</label>
+<input type="email" required>
+
+<div class="grid">
+
+<div>
+<label>Telefone</label>
+<input required>
+</div>
+
+<div>
+<label>Idade</label>
+<input required>
+</div>
+
+</div>
+
+<label>Igreja</label>
+<input>
+
+<label>Forma de pagamento</label>
+
+<div class="pix">
+
+<h3>PIX Instantâneo</h3>
+
+<p>
+Pagamento rápido e aprovado em poucos segundos.
+</p>
+
+</div>
+
+<button>
+
+Finalizar Pagamento →
+
+</button>
+
+</form>
+
+</div>
+
+<div class="card resumo">
+
+<h2>Resumo</h2>
+
+<div class="item">
+
+<span>Inscrição Summer Camp</span>
+
+<span>R$150,00</span>
+
+</div>
+
+<div class="item">
+
+<span>Taxas</span>
+
+<span>Grátis</span>
+
+</div>
+
+<hr style="margin:20px 0;">
+
+<div class="item total">
+
+<span>Total</span>
+
+<span>R$150,00</span>
+
+</div>
+
+<div class="cupom">
+
+<input placeholder="Cupom de desconto">
+
+<button type="button">
+
+Aplicar
+
+</button>
+
+</div>
+
+<div class="badge">
+
+🔒 Ambiente Seguro
+
+</div>
+
+<div class="info">
+
+✔ Pagamento protegido
+
+<br>
+
+✔ Dados criptografados
+
+<br>
+
+✔ Aprovação imediata
+
+<br>
+
+✔ Suporte da equipe Summer Camp
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+document.getElementById("checkout").onsubmit=function(e){
+
+e.preventDefault();
+
+window.location.href="https://checkout.infinitepay.io/vanessa-bar1206/izaWS0wKqP";
+
+}
+
+</script>
+
+</body>
+
+</html>
 
   // UI state
   const [errors, setErrors] = useState<Record<string, string>>({});

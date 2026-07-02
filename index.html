@@ -30,6 +30,30 @@
     html { scroll-behavior: smooth; }
     .glass { background: rgba(8, 16, 33, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: #050b18;
+      animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @media (min-width: 768px) {
+      .video-container {
+        height: 80vh;
+      }
+    }
+    .video-container video, .video-container iframe {
+      display: block;
+      border: none;
+    }
   </style>
 </head>
 <body class="bg-[#050b18] text-white selection:bg-orange-500 selection:text-white font-sans antialiased min-h-screen overflow-x-hidden">
@@ -163,7 +187,7 @@
             <span class="text-xs font-mono font-bold tracking-wider text-orange-300">PROPÓSITO</span>
           </div>
           <h2 class="text-4xl md:text-5xl font-extrabold font-display text-white">Muito mais que <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-400">um retiro</span>.</h2>
-          <p class="text-base text-gray-300 leading-relaxed">Prepare-se para viver dias inesquecíveis de comunhão, adoração, gincanas intensas na lama, competições de tribos e cultos marcantes na fogueira.</p>
+          <p class="text-base text-gray-300 leading-relaxed">Prepare-se para viver dias inesquecíveis de comunhão, adoração, gincanas dinâmicas, competições de tribos e cultos marcantes na fogueira.</p>
           <p class="text-base text-gray-300 leading-relaxed">No <strong class="text-white">Summer Camp 2027</strong>, geramos um ambiente de aliança e amizades que vai marcar toda a sua juventude. Teremos transporte fretado, acomodações premium e alimentação inclusa.</p>
         </div>
         <div class="lg:col-span-5">
@@ -195,8 +219,8 @@
           </div>
           <div class="glass-card rounded-2xl p-6 border border-white/5">
             <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4"><i data-lucide="activity" class="w-6 h-6 text-orange-500"></i></div>
-            <h3 class="text-lg font-bold text-white mb-2">Gincanas e Lama</h3>
-            <p class="text-sm text-gray-400 leading-relaxed">Circuitos desafiadores, lama, esporte de tribos e diversão ao ar livre para agitar a galera.</p>
+            <h3 class="text-lg font-bold text-white mb-2">Gincanas e Competições</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Circuitos desafiadores, esporte de tribos, gincana de fogueira e diversão ao ar livre para agitar a galera.</p>
           </div>
         </div>
       </div>
@@ -211,8 +235,8 @@
         </div>
 
         <!-- Video Player -->
-        <div class="max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#050b18] aspect-video">
-          <iframe id="promo-video-player" class="w-full h-full" src="" title="Promo Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div id="promo-video-container" class="video-container shadow-2xl border border-white/10 bg-[#050b18]">
+          <!-- Dynamic video or iframe will be inserted here -->
         </div>
 
         <!-- Category Filters -->
@@ -264,8 +288,9 @@
               <p class="text-sm text-gray-400">Garanta sua participação no melhor carnaval da sua vida com hospedagem, transporte, alimentação e kit inclusos.</p>
               <ul class="space-y-3 text-sm text-gray-200">
                 <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-orange-400"></i> Hospedagem e lazer no Sítio</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-orange-400"></i> Integração de Tribos, Ministrações & Louvor</li>
                 <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-orange-400"></i> Alimentação completa de 05 a 09</li>
-                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-orange-400"></i> Ônibus fretado ida e volta</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-orange-400"></i> Cobertura fotográfica completa profissional</li>
                 <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-orange-400"></i> Kit com Camisa oficial Summer</li>
               </ul>
             </div>
@@ -276,7 +301,7 @@
                 <span class="text-5xl md:text-6xl font-black text-white font-mono tracking-tight">500</span>
                 <span class="text-lg font-bold text-gray-400">,00</span>
               </div>
-              <p class="text-xs text-orange-400 font-bold mb-6">Em até 10x no cartão ou à vista via Pix!</p>
+              <p class="text-xs text-orange-400 font-bold mb-6">Parcele sua inscrição em até 6 vezes no cartão (conforme condições da operadora) ou à vista via Pix!</p>
               <button onclick="navigateTo('registration')" class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white hover:scale-105 active:scale-95 transition-all shadow-lg shadow-orange-500/20">Quero me inscrever</button>
             </div>
           </div>
@@ -313,7 +338,7 @@
           <p class="text-sm text-gray-400">A equipe da Juventude Convictos está sempre à sua disposição para tirar dúvidas, realizar credenciamento de lideranças e processar pagamentos.</p>
           <div class="space-y-4 text-sm text-gray-300">
             <div class="flex items-center gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-orange-500"></i> <span>Igreja do Evangelho Quadrangular - Inhoaíba (RJ)</span></div>
-            <div class="flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-orange-500"></i> <span>(21) 98765-4321 (Secretaria Convictos)</span></div>
+            <div class="flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-orange-500"></i> <span>(21) 98398-6623 / (21) 99293-9093 (Secretaria Convictos)</span></div>
             <div class="flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-orange-500"></i> <span>contato@convictos.com.br</span></div>
           </div>
         </div>
@@ -408,9 +433,7 @@
       { id: 'g-new-6', url: 'https://i.postimg.cc/s2c1WT1c/Equipe-roxa.jpg', title: 'Competições - Equipe Roxa', category: 'Gincanas' }
     ];
 
-    const INITIAL_REGISTRATIONS = [
-      { id: 'reg-1', fullName: 'Ana Julia de Souza', birthDate: '2008-04-12', cpf: '123.456.789-01', rg: '23.456.789-0', phone: '(21) 98765-4321', whatsapp: '(21) 98765-4321', email: 'anajulia@example.com', address: 'Estrada do Campinho, 1200 - Campo Grande, RJ', church: 'IEQ Inhoaíba', leader: 'Lucas e Amanda', hasAllergies: false, allergiesDetails: '', hasMedications: false, medicationsDetails: '', emergencyContact: 'Mãe: Cláudia (21) 99999-8888', tshirtSize: 'M', paymentMethod: 'PIX', status: 'Confirmada', createdAt: '2026-06-25T14:30:00.000Z', registrationCode: 'SC27-A8B9', amountPaid: 500 }
-    ];
+    const INITIAL_REGISTRATIONS = [];
 
     const INITIAL_ANNOUNCEMENTS = [
       { id: 'ann-1', title: 'Inscrições Abertas!', content: 'As inscrições para o Summer Camp 2027 estão abertas!', type: 'Todos', sentAt: '2026-06-25T14:00:00.000Z', recipientCount: 1 }
@@ -427,7 +450,7 @@
     const FAQs = [
       { question: 'Quem pode participar?', answer: 'Jovens e adolescentes a partir de 12 anos.' },
       { question: 'O que levar na mala?', answer: 'Bíblia, roupas de gincana (que possam sujar), roupas de banho (compostura cristã), lençol/toalha, repelente e muita disposição!' },
-      { question: 'Como funciona o pagamento?', answer: 'Aceitamos PIX ou Cartão de Crédito (em até 10x) diretamente com a liderança.' }
+      { question: 'Como funciona o pagamento?', answer: 'Aceitamos PIX ou Cartão de Crédito (com opção de parcelamento em até 6x no cartão, conforme condições da operadora) diretamente no portal.' }
     ];
 
     // Local DB State variables
@@ -463,6 +486,89 @@
       return url;
     }
 
+    function resizePromoVideo() {
+      const container = document.getElementById('promo-video-container');
+      const player = document.getElementById('promo-video-player');
+      if (!container || !player) return;
+
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
+
+      // If it's a native video element, let object-fit: cover do the work natively
+      if (player.tagName.toLowerCase() === 'video') {
+        player.style.width = '100%';
+        player.style.height = '100%';
+        player.style.objectFit = 'cover';
+        player.style.position = 'static';
+        player.style.transform = 'none';
+        return;
+      }
+
+      // If it's an iframe (like Kapwing or YouTube), we let it fill 100% of the container to keep controls visible & fully clickable
+      if (player.tagName.toLowerCase() === 'iframe') {
+        player.style.width = '100%';
+        player.style.height = '100%';
+        player.style.position = 'static';
+        player.style.transform = 'none';
+        return;
+      }
+    }
+
+    function renderPromoVideo() {
+      const container = document.getElementById('promo-video-container');
+      if (!container) return;
+      
+      const isDirectVideo = promoVideo && (
+        promoVideo.endsWith('.mp4') || 
+        promoVideo.endsWith('.webm') || 
+        promoVideo.endsWith('.ogg') ||
+        promoVideo.includes('video.mp4') ||
+        (!promoVideo.includes('youtube.com') && !promoVideo.includes('kapwing.com') && !promoVideo.includes('embed'))
+      );
+      
+      if (isDirectVideo) {
+        container.innerHTML = `
+          <video id="promo-video-player" class="w-full h-full object-cover cursor-pointer" style="object-fit: cover;" controls autoplay muted loop preload="auto">
+            <source src="${promoVideo}" type="video/mp4">
+          </video>
+        `;
+        const videoEl = document.getElementById('promo-video-player');
+        if (videoEl) {
+          videoEl.addEventListener('click', function() {
+            if (videoEl.requestFullscreen) {
+              videoEl.requestFullscreen();
+            } else if (videoEl.webkitRequestFullscreen) {
+              videoEl.webkitRequestFullscreen();
+            } else if (videoEl.msRequestFullscreen) {
+              videoEl.msRequestFullscreen();
+            }
+          });
+
+          // Detect orientation when metadata loads to adjust aspect ratio automatically
+          videoEl.addEventListener('loadedmetadata', function() {
+            resizePromoVideo();
+          });
+        }
+      } else {
+        // Optimize performance by enabling lazy loading on the iframe
+        container.innerHTML = `
+          <iframe id="promo-video-player" class="w-full h-full object-cover" style="object-fit: cover;" src="${promoVideo}" title="Promo Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        `;
+        const iframeEl = document.getElementById('promo-video-player');
+        if (iframeEl) {
+          iframeEl.addEventListener('load', function() {
+            resizePromoVideo();
+          });
+        }
+      }
+      
+      // Perform initial resize
+      resizePromoVideo();
+    }
+
+    // Listen to window resizes for fluid coverage
+    window.addEventListener('resize', resizePromoVideo);
+
     function initDatabase() {
       try {
         if (!localStorage.getItem(REGISTRATIONS_KEY)) localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(INITIAL_REGISTRATIONS));
@@ -488,14 +594,14 @@
           }
         }
         const currentVid = localStorage.getItem(VIDEO_KEY);
-        if (!currentVid || currentVid === 'https://www.youtube.com/embed/WJ69r9sHn8I') {
-          localStorage.setItem(VIDEO_KEY, 'https://www.kapwing.com/e/6a456e967d73370f680d63c9');
+        if (!currentVid || currentVid === 'https://www.youtube.com/embed/WJ69r9sHn8I' || currentVid === 'https://www.kapwing.com/e/6a456e967d73370f680d63c9') {
+          localStorage.setItem(VIDEO_KEY, 'https://www.kapwing.com/e/6a4699b2bd122412f3741bd9');
         }
 
         registrations = JSON.parse(localStorage.getItem(REGISTRATIONS_KEY)) || INITIAL_REGISTRATIONS;
         announcements = JSON.parse(localStorage.getItem(ANNOUNCEMENTS_KEY)) || INITIAL_ANNOUNCEMENTS;
         galleryImages = JSON.parse(localStorage.getItem(GALLERY_KEY)) || INITIAL_GALLERY;
-        promoVideo = formatEmbedUrl(localStorage.getItem(VIDEO_KEY) || 'https://www.kapwing.com/e/6a456e967d73370f680d63c9');
+        promoVideo = formatEmbedUrl(localStorage.getItem(VIDEO_KEY) || 'https://www.kapwing.com/e/6a4699b2bd122412f3741bd9');
         
         const userStr = localStorage.getItem(CURRENT_USER_KEY);
         if (userStr && userStr !== 'undefined' && userStr !== 'null') {
@@ -508,14 +614,11 @@
         registrations = INITIAL_REGISTRATIONS;
         announcements = INITIAL_ANNOUNCEMENTS;
         galleryImages = INITIAL_GALLERY;
-        promoVideo = 'https://www.kapwing.com/e/6a456e967d73370f680d63c9';
+        promoVideo = 'https://www.kapwing.com/e/6a4699b2bd122412f3741bd9';
         currentUser = null;
       }
 
-      const promoVideoPlayer = document.getElementById('promo-video-player');
-      if (promoVideoPlayer) {
-        promoVideoPlayer.src = promoVideo;
-      }
+      renderPromoVideo();
     }
 
     // Routing System
@@ -596,9 +699,8 @@
 
     function renderStats() {
       if (!Array.isArray(registrations)) registrations = [];
-      const baseFilled = 52;
-      const customRegs = registrations.filter(r => r && r.id && !r.id.startsWith('reg-')).length;
-      const filledSpots = Math.min(baseFilled + customRegs, 80);
+      const activeRegs = registrations.filter(r => r && r.id && !r.id.startsWith('reg-'));
+      const filledSpots = activeRegs.filter(r => r.status === 'Confirmada').length;
       const percentage = (filledSpots / 80) * 100;
 
       const progressTextEl = document.getElementById('progress-text');
@@ -711,6 +813,44 @@
     }
 
     // REGISTRATION FLOW
+    function calculateAge(dobString) {
+      if (!dobString) return '';
+      const today = new Date();
+      const birthDate = new Date(dobString);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    }
+
+    let appliedDiscount = 0;
+    window.applyCoupon = function() {
+      const code = document.getElementById('reg-coupon').value.toUpperCase().trim();
+      const msg = document.getElementById('coupon-message');
+      const discountRow = document.getElementById('summary-discount-row');
+      const discountVal = document.getElementById('summary-discount-val');
+      const totalText = document.getElementById('summary-total');
+      
+      if (code === 'CAMP10' || code === 'SUMMER10' || code === 'CONVICTOS10') {
+        appliedDiscount = 50; // 10% of 500
+        msg.className = "text-[10px] font-mono text-emerald-400 block mt-1";
+        msg.innerText = "✔ Cupom de 10% aplicado com sucesso!";
+        discountRow.classList.remove('hidden');
+        discountRow.classList.add('flex');
+        discountVal.innerText = "- R$ 50,00";
+        totalText.innerText = "R$ 450,00";
+      } else {
+        appliedDiscount = 0;
+        msg.className = "text-[10px] font-mono text-red-400 block mt-1";
+        msg.innerText = "❌ Cupom inválido!";
+        discountRow.classList.add('hidden');
+        discountRow.classList.remove('flex');
+        totalText.innerText = "R$ 500,00";
+      }
+    };
+
     function renderRegistrationArea() {
       const div = document.getElementById('registration-content-area');
 
@@ -719,16 +859,16 @@
           <div class="glass-card rounded-3xl p-8 md:p-10 border border-orange-500/30 shadow-2xl max-w-lg mx-auto text-center space-y-6">
             <span class="text-6xl mb-4 inline-block animate-bounce">🎉</span>
             <h2 class="text-3xl font-bold font-display text-white">Parabéns!</h2>
-            <p class="text-orange-400 font-bold font-mono text-xs uppercase tracking-wider">Inscrição pré-registrada</p>
+            <p class="text-orange-400 font-bold font-mono text-xs uppercase tracking-wider">Inscrição Pré-registrada</p>
             <div class="text-gray-300 text-sm space-y-3 py-4 border-y border-white/10 text-left">
               <p>Olá, <strong class="text-white">${regSuccessData.fullName}</strong>!</p>
-              <p>Sua vaga está garantida por 72h. Guarde suas credenciais para acessar o portal:</p>
+              <p>Sua vaga está pré-reservada. Guarde suas credenciais para acessar seu portal e verificar o status:</p>
               <div class="bg-[#0a1226] p-4 rounded-xl space-y-2 text-xs font-mono border border-white/5">
                 <div class="flex justify-between"><span>E-mail:</span><strong class="text-white">${regSuccessData.email}</strong></div>
                 <div class="flex justify-between"><span>Código:</span><strong class="text-orange-400">${regSuccessData.registrationCode}</strong></div>
                 <div class="flex justify-between"><span>Valor Pago:</span><strong class="text-emerald-400">R$ 0,00 (Pendente)</strong></div>
               </div>
-              <p class="text-[11px] text-gray-400 italic">Uma mensagem de confirmação foi encaminhada para seu e-mail.</p>
+              <p class="text-[11px] text-gray-400 italic">Após a confirmação da InfinitePay, seu status será atualizado automaticamente para "Pago".</p>
             </div>
             <button onclick="loginAndGoToParticipant('${regSuccessData.email}', '${regSuccessData.registrationCode}')" class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white shadow-lg transition-all flex items-center justify-center space-x-2">
               <span>Acessar Meu Portal</span>
@@ -736,78 +876,332 @@
             </button>
           </div>
         `;
-      } else {
+      } else if (regFormStatus === 'submitting') {
         div.innerHTML = `
-          <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <span class="text-xs font-mono font-bold tracking-widest text-orange-400 uppercase bg-orange-500/10 px-3.5 py-1.5 rounded-full">Inscrição</span>
-            <h2 class="text-4xl font-extrabold font-display text-white">Garanta sua Vaga On-line</h2>
-            <p class="text-gray-400 text-sm">Preencha todos os dados com cuidado para reservar sua acomodação no sítio.</p>
-          </div>
-
-          <div class="glass-card rounded-3xl p-6 md:p-10 border border-white/5 shadow-2xl">
-            <form id="camp-reg-form" onsubmit="submitRegistration(event)" class="space-y-6">
-              
-              <div class="border-b border-white/5 pb-2"><h3 class="text-base font-bold text-white flex items-center gap-2"><i data-lucide="user" class="text-orange-500 w-5 h-5"></i> <span>Dados Pessoais</span></h3></div>
-              <div class="grid md:grid-cols-2 gap-4">
-                <input type="text" id="reg-fullname" required placeholder="Nome Completo" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
-                <input type="date" id="reg-birthdate" required class="w-full px-4 py-3 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
-                <input type="text" id="reg-cpf" required placeholder="CPF (000.000.000-00)" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
-                <input type="text" id="reg-rg" required placeholder="RG" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
-                <input type="text" id="reg-phone" required placeholder="Telefone" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
-                <input type="email" id="reg-email" required placeholder="E-mail" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
-                <input type="text" id="reg-address" required placeholder="Endereço Residencial Completo" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500 md:col-span-2">
+          <div class="glass-card rounded-3xl p-8 md:p-12 border border-orange-500/30 shadow-2xl max-w-lg mx-auto text-center space-y-6">
+            <div class="flex flex-col items-center py-6">
+              <div class="w-16 h-16 border-4 border-orange-500/20 border-t-orange-500 rounded-full animate-spin mb-6"></div>
+              <h2 class="text-2xl font-bold font-display text-white">Processando Inscrição...</h2>
+              <p class="text-gray-300 text-sm mt-3 text-center">Estamos encaminhando você para o pagamento seguro...</p>
+              <div class="mt-6 p-4 bg-orange-500/10 rounded-xl border border-orange-500/20 text-xs font-mono text-orange-400">
+                🔒 Transação protegida e auditada pela InfinitePay
               </div>
-
-              <div class="border-b border-white/5 pb-2"><h3 class="text-base font-bold text-white flex items-center gap-2"><i data-lucide="compass" class="text-orange-500 w-5 h-5"></i> <span>Igreja & Liderança</span></h3></div>
-              <div class="grid md:grid-cols-2 gap-4">
-                <input type="text" id="reg-church" required placeholder="Qual igreja frequenta?" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
-                <input type="text" id="reg-leader" required placeholder="Nome do seu Líder/Pastor" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
-              </div>
-
-              <div class="border-b border-white/5 pb-2"><h3 class="text-base font-bold text-white flex items-center gap-2"><i data-lucide="info" class="text-orange-500 w-5 h-5"></i> <span>Saúde & Kit</span></h3></div>
-              <div class="space-y-3 text-xs">
-                <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
-                  <input type="checkbox" id="reg-has-allergies" class="w-4 h-4 rounded text-orange-500">
-                  <label for="reg-has-allergies">Possui algum tipo de alergia alimentar ou a medicamentos?</label>
-                </div>
-                <input type="text" id="reg-allergies-details" placeholder="Detalhes da alergia" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500 hidden">
-                
-                <input type="text" id="reg-emergency" required placeholder="Contato de Emergência (Nome, parentesco e telefone)" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
-                
-                <div class="grid sm:grid-cols-2 gap-4 pt-2">
-                  <div class="space-y-1">
-                    <label class="text-[10px] text-gray-400 font-mono font-bold">Camisa Oficial</label>
-                    <select id="reg-tshirtsize" class="w-full px-4 py-3 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none">
-                      <option value="PP">Tamanho PP</option>
-                      <option value="P">Tamanho P</option>
-                      <option value="M" selected>Tamanho M</option>
-                      <option value="G">Tamanho G</option>
-                      <option value="GG">Tamanho GG</option>
-                    </select>
-                  </div>
-                  <div class="space-y-1">
-                    <label class="text-[10px] text-gray-400 font-mono font-bold">Forma de Pagamento</label>
-                    <select id="reg-payment" class="w-full px-4 py-3 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none">
-                      <option value="PIX">PIX (À Vista)</option>
-                      <option value="Cartão">Cartão de Crédito</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="flex items-start gap-2 text-[10px] text-gray-400 leading-normal max-w-sm">
-                  <i data-lucide="shield-check" class="text-orange-500 w-5 h-5 shrink-0"></i>
-                  <span>Sua vaga ficará reservada por 72 horas para confirmação financeira com a liderança.</span>
-                </div>
-                <button type="submit" id="reg-btn-submit" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white shadow-md transition-all">Finalizar Inscrição</button>
-              </div>
-
-            </form>
+            </div>
           </div>
         `;
+      } else {
+        const spotsLeft = Math.max(80 - (registrations ? registrations.length : 0), 3);
+        div.innerHTML = `
+          <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+            <span class="text-xs font-mono font-bold tracking-widest text-orange-400 uppercase bg-orange-500/10 px-3.5 py-1.5 rounded-full">Ficha Oficial</span>
+            <h2 class="text-4xl font-extrabold font-display text-white font-black tracking-tight">Ficha de Inscrição</h2>
+            <p class="text-gray-400 text-sm">Preencha sua ficha para garantir sua acomodação e prossiga para o pagamento.</p>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-8 items-start">
+            
+            <!-- FORM COLUMN -->
+            <div class="lg:col-span-2 glass-card rounded-3xl p-6 md:p-8 border border-white/5 shadow-2xl space-y-6">
+              
+              <!-- STEP PROGRESS & SPOTS -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-6">
+                <div class="flex-1">
+                  <div class="flex justify-between text-xs font-mono font-bold text-gray-400 mb-2 uppercase">
+                    <span>Passo 1: Ficha de Inscrição</span>
+                    <span class="text-orange-400">Pendente: Pagamento</span>
+                  </div>
+                  <div class="flex gap-2">
+                    <div class="flex-1 h-2 bg-gradient-to-r from-orange-600 to-yellow-500 rounded-full"></div>
+                    <div class="flex-1 h-2 bg-white/10 rounded-full"></div>
+                  </div>
+                </div>
+                <div class="bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 font-mono text-xs font-bold px-4 py-2 rounded-xl text-center self-start sm:self-auto shrink-0">
+                  ⚡ Apenas <span class="font-black text-white">${spotsLeft}</span> vagas restantes!
+                </div>
+              </div>
+
+              <form id="camp-reg-form" onsubmit="submitRegistration(event)" class="space-y-6 text-left">
+                
+                <!-- Dados Pessoais -->
+                <div class="border-b border-white/5 pb-2">
+                  <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="user" class="text-orange-500 w-5 h-5"></i> <span>Dados Pessoais</span>
+                  </h3>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div class="space-y-1">
+                    <label class="text-[11px] text-gray-400 font-bold uppercase block">Nome Completo *</label>
+                    <input type="text" id="reg-fullname" required placeholder="Digite seu nome completo" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                  </div>
+                  
+                  <div class="space-y-1">
+                    <label class="text-[11px] text-gray-400 font-bold uppercase block">CPF *</label>
+                    <input type="text" id="reg-cpf" required placeholder="000.000.000-00" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4 md:col-span-2">
+                    <div class="space-y-1">
+                      <label class="text-[11px] text-gray-400 font-bold uppercase block">Data de Nascimento *</label>
+                      <input type="date" id="reg-birthdate" required class="w-full px-4 py-3 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                    
+                    <div class="space-y-1">
+                      <label class="text-[11px] text-gray-400 font-bold uppercase block">Idade *</label>
+                      <input type="text" id="reg-age" readonly disabled placeholder="Auto calculada" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/5 text-xs text-gray-400 focus:outline-none cursor-not-allowed">
+                    </div>
+                  </div>
+
+                  <div class="space-y-1">
+                    <label class="text-[11px] text-gray-400 font-bold uppercase block">Sexo *</label>
+                    <select id="reg-gender" required class="w-full px-4 py-3 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                      <option value="" disabled selected>Selecione...</option>
+                      <option value="Masculino">Masculino</option>
+                      <option value="Feminino">Feminino</option>
+                      <option value="Outro">Outro</option>
+                    </select>
+                  </div>
+
+                  <div class="space-y-1">
+                    <label class="text-[11px] text-gray-400 font-bold uppercase block">Telefone (WhatsApp) *</label>
+                    <input type="text" id="reg-phone" required placeholder="(21) 99999-9999" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                  </div>
+
+                  <div class="space-y-1 md:col-span-2">
+                    <label class="text-[11px] text-gray-400 font-bold uppercase block">E-mail *</label>
+                    <input type="email" id="reg-email" required placeholder="seuemail@exemplo.com" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                  </div>
+                </div>
+
+                <!-- Igreja e Logística -->
+                <div class="border-b border-white/5 pb-2 pt-4">
+                  <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="compass" class="text-orange-500 w-5 h-5"></i> <span>Igreja & Transporte</span>
+                  </h3>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div class="space-y-1">
+                    <label class="text-[11px] text-gray-400 font-bold uppercase block">Qual igreja frequenta? *</label>
+                    <input type="text" id="reg-church" required placeholder="Nome da igreja" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                  </div>
+                  
+                  <div class="space-y-1">
+                    <label class="text-[11px] text-gray-400 font-bold uppercase block">Forma de Transporte *</label>
+                    <select id="reg-transportation" required class="w-full px-4 py-3 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                      <option value="" disabled selected>Selecione...</option>
+                      <option value="Ônibus da Igreja">Ônibus da Igreja</option>
+                      <option value="Carro Próprio">Carro Próprio</option>
+                      <option value="Outro">Outro</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Saúde & Kit -->
+                <div class="border-b border-white/5 pb-2 pt-4">
+                  <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="info" class="text-orange-500 w-5 h-5"></i> <span>Saúde & Kit</span>
+                  </h3>
+                </div>
+                
+                <div class="space-y-4 text-xs">
+                  
+                  <!-- Restrição Alimentar -->
+                  <div class="space-y-2 bg-white/5 p-4 rounded-2xl border border-white/5">
+                    <div class="flex items-center gap-3">
+                      <input type="checkbox" id="reg-has-dietary" class="w-4 h-4 rounded text-orange-500 bg-black/40 border-white/15 focus:ring-orange-500 cursor-pointer">
+                      <label for="reg-has-dietary" class="text-xs text-gray-300 font-semibold cursor-pointer select-none">Possui alguma restrição alimentar?</label>
+                    </div>
+                    <input type="text" id="reg-dietary-details" placeholder="Especifique a restrição alimentar (ex: sem glúten, sem lactose)" class="w-full px-4 py-2.5 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500 hidden">
+                  </div>
+
+                  <!-- Alergias -->
+                  <div class="space-y-2 bg-white/5 p-4 rounded-2xl border border-white/5">
+                    <div class="flex items-center gap-3">
+                      <input type="checkbox" id="reg-has-allergies" class="w-4 h-4 rounded text-orange-500 bg-black/40 border-white/15 focus:ring-orange-500 cursor-pointer">
+                      <label for="reg-has-allergies" class="text-xs text-gray-300 font-semibold cursor-pointer select-none">Possui algum tipo de alergia?</label>
+                    </div>
+                    <input type="text" id="reg-allergies-details" placeholder="Especifique as alergias (ex: frutos do mar, dipirona)" class="w-full px-4 py-2.5 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500 hidden">
+                  </div>
+
+                  <!-- Medicamento contínuo -->
+                  <div class="space-y-2 bg-white/5 p-4 rounded-2xl border border-white/5">
+                    <div class="flex items-center gap-3">
+                      <input type="checkbox" id="reg-has-medications" class="w-4 h-4 rounded text-orange-500 bg-black/40 border-white/15 focus:ring-orange-500 cursor-pointer">
+                      <label for="reg-has-medications" class="text-xs text-gray-300 font-semibold cursor-pointer select-none">Usa medicamento contínuo?</label>
+                    </div>
+                    <input type="text" id="reg-medications-details" placeholder="Especifique os medicamentos e horários" class="w-full px-4 py-2.5 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500 hidden">
+                  </div>
+
+                  <!-- Contato de Emergência -->
+                  <div class="grid md:grid-cols-2 gap-4 pt-2">
+                    <div class="space-y-1">
+                      <label class="text-[11px] text-gray-400 font-bold uppercase block">Contato de Emergência *</label>
+                      <input type="text" id="reg-emergency-name" required placeholder="Nome do Responsável" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                    <div class="space-y-1">
+                      <label class="text-[11px] text-gray-400 font-bold uppercase block">Telefone do Contato *</label>
+                      <input type="text" id="reg-emergency-phone" required placeholder="(21) 99999-9999" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                  </div>
+
+                  <!-- Tamanho de Camisa -->
+                  <div class="space-y-1 pt-2">
+                    <label class="text-[11px] text-gray-400 font-bold uppercase block">Tamanho da Camisa *</label>
+                    <select id="reg-tshirtsize" required class="w-full px-4 py-3 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                      <option value="PP">PP</option>
+                      <option value="P">P</option>
+                      <option value="M" selected>M</option>
+                      <option value="G">G</option>
+                      <option value="GG">GG</option>
+                      <option value="XG">XG</option>
+                    </select>
+                  </div>
+
+                  <!-- Observações -->
+                  <div class="space-y-1 pt-2">
+                    <label class="text-[11px] text-gray-400 font-bold uppercase block">Observações</label>
+                    <textarea id="reg-notes" placeholder="Alguma informação adicional importante para a liderança?" rows="3" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500 resize-none"></textarea>
+                  </div>
+
+                </div>
+
+                <!-- Aceite Regulamento -->
+                <div class="pt-4 border-t border-white/5 space-y-4">
+                  <div class="flex items-start gap-3">
+                    <input type="checkbox" id="reg-agree" required class="mt-1 w-4 h-4 rounded text-orange-500 bg-black/40 border-white/15 focus:ring-orange-500 cursor-pointer">
+                    <label for="reg-agree" class="text-xs text-gray-400 cursor-pointer select-none leading-relaxed">
+                      Estou ciente e aceito todas as regras do <strong class="text-white font-bold">Summer Camp 2027</strong>. Comprometo-me a obedecer aos horários, cooperar com a gincana de tribos, zelar pelas acomodações e participar de todas as ministrações.
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-2">
+                  <button type="submit" id="reg-btn-submit" class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-500 hover:to-yellow-400 text-white shadow-lg shadow-orange-500/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-base">
+                    <span>💳 Finalizar Inscrição</span>
+                  </button>
+                </div>
+
+              </form>
+            </div>
+
+            <!-- SUMMARY COLUMN -->
+            <div class="glass-card rounded-3xl p-6 border border-white/5 shadow-2xl space-y-6 lg:sticky lg:top-24 text-left">
+              <h3 class="text-lg font-bold text-white border-b border-white/5 pb-3 font-display flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="text-orange-500 w-5 h-5"></i> Resumo do Pedido
+              </h3>
+
+              <div class="space-y-4 text-sm">
+                <div class="flex justify-between text-gray-400">
+                  <span>Inscrição Summer Camp</span>
+                  <span class="text-white font-mono font-bold">R$ 500,00</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                  <span>Acomodação & Refeições</span>
+                  <span class="text-emerald-400 font-mono font-bold">Incluso</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                  <span>Kit de Boas-Vindas</span>
+                  <span class="text-emerald-400 font-mono font-bold">Incluso</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                  <span>Taxa de Processamento</span>
+                  <span class="text-emerald-400 font-mono font-bold">Grátis</span>
+                </div>
+                
+                <!-- Discount Line -->
+                <div id="summary-discount-row" class="justify-between text-yellow-500 hidden">
+                  <span>Desconto de Cupom</span>
+                  <span id="summary-discount-val" class="font-mono font-bold">- R$ 0,00</span>
+                </div>
+
+                <div class="border-t border-white/5 pt-4 flex justify-between items-baseline">
+                  <span class="text-white font-bold">Total Geral</span>
+                  <span id="summary-total" class="text-3xl font-black text-orange-400 font-mono">R$ 500,00</span>
+                </div>
+              </div>
+
+
+
+              <!-- Security Info -->
+              <div class="space-y-3.5 text-xs text-gray-400 border-t border-white/5 pt-6">
+                <div class="flex items-center gap-2.5 text-white font-bold">
+                  <i data-lucide="lock" class="text-emerald-500 w-4.5 h-4.5 shrink-0"></i>
+                  <span>🔒 Pagamento protegido pela InfinitePay</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-[11px] font-medium pl-7 text-gray-400 leading-tight">
+                  <div>✔ Ambiente 100% Seguro</div>
+                  <div>✔ Dados Criptografados</div>
+                  <div>✔ Aprovação Imediata</div>
+                  <div>✔ Suporte da Equipe</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        `;
+
+        // Attach event listeners after innerHTML injection
+        const cpfInput = document.getElementById('reg-cpf');
+        if (cpfInput) {
+          cpfInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+              value = value.replace(/(\d{3})(\d)/, '$1.$2');
+              value = value.replace(/(\d{3})(\d)/, '$1.$2');
+              value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            }
+            e.target.value = value.substring(0, 14);
+          });
+        }
+
+        const phoneInput = document.getElementById('reg-phone');
+        if (phoneInput) {
+          phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+              value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+              value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            }
+            e.target.value = value.substring(0, 15);
+          });
+        }
+
+        const emergencyPhoneInput = document.getElementById('reg-emergency-phone');
+        if (emergencyPhoneInput) {
+          emergencyPhoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+              value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+              value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            }
+            e.target.value = value.substring(0, 15);
+          });
+        }
+
+        const birthInput = document.getElementById('reg-birthdate');
+        if (birthInput) {
+          birthInput.addEventListener('change', function(e) {
+            const ageVal = calculateAge(e.target.value);
+            document.getElementById('reg-age').value = isNaN(ageVal) ? '' : ageVal + ' anos';
+          });
+        }
+
+        document.getElementById('reg-has-dietary').addEventListener('change', function(e) {
+          const det = document.getElementById('reg-dietary-details');
+          if (e.target.checked) det.classList.remove('hidden');
+          else det.classList.add('hidden');
+        });
+
         document.getElementById('reg-has-allergies').addEventListener('change', function(e) {
           const det = document.getElementById('reg-allergies-details');
+          if (e.target.checked) det.classList.remove('hidden');
+          else det.classList.add('hidden');
+        });
+
+        document.getElementById('reg-has-medications').addEventListener('change', function(e) {
+          const det = document.getElementById('reg-medications-details');
           if (e.target.checked) det.classList.remove('hidden');
           else det.classList.add('hidden');
         });
@@ -817,60 +1211,149 @@
 
     function submitRegistration(e) {
       e.preventDefault();
-      const name = document.getElementById('reg-fullname').value;
-      const email = document.getElementById('reg-email').value;
-      const cpf = document.getElementById('reg-cpf').value;
-      const birth = document.getElementById('reg-birthdate').value;
-      const phone = document.getElementById('reg-phone').value;
-      const rg = document.getElementById('reg-rg').value;
-      const address = document.getElementById('reg-address').value;
-      const church = document.getElementById('reg-church').value;
-      const leader = document.getElementById('reg-leader').value;
-      const tshirt = document.getElementById('reg-tshirtsize').value;
-      const pay = document.getElementById('reg-payment').value;
-      const emergency = document.getElementById('reg-emergency').value;
+      
+      const name = document.getElementById('reg-fullname').value.trim();
+      const cpf = document.getElementById('reg-cpf').value.trim();
+      const birth = document.getElementById('reg-birthdate').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const church = document.getElementById('reg-church').value.trim();
+      const transportation = document.getElementById('reg-transportation').value.trim();
+      const gender = document.getElementById('reg-gender').value.trim();
+      
+      const hasDietary = document.getElementById('reg-has-dietary').checked;
+      const dietaryDetails = document.getElementById('reg-dietary-details').value.trim();
+      const hasAllergies = document.getElementById('reg-has-allergies').checked;
+      const allergiesDetails = document.getElementById('reg-allergies-details').value.trim();
+      const hasMedications = document.getElementById('reg-has-medications').checked;
+      const medicationsDetails = document.getElementById('reg-medications-details').value.trim();
+      
+      const emergencyName = document.getElementById('reg-emergency-name').value.trim();
+      const emergencyPhone = document.getElementById('reg-emergency-phone').value.trim();
+      const tshirt = document.getElementById('reg-tshirtsize').value.trim();
+      const notes = document.getElementById('reg-notes').value.trim();
+      const agree = document.getElementById('reg-agree').checked;
 
-      const btn = document.getElementById('reg-btn-submit');
-      btn.innerText = "Processando...";
-      btn.disabled = true;
+      // Robust Validation & Highlight Highlight
+      function highlight(id, isValid) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (!isValid) {
+          el.className = el.className.replace('border-white/10', 'border-red-500').replace('border-white/5', 'border-red-500');
+          if (!el.className.includes('border-red-500')) {
+            el.classList.add('border-red-500');
+          }
+        } else {
+          el.className = el.className.replace('border-red-500', 'border-white/10');
+          el.classList.remove('border-red-500');
+        }
+      }
 
+      let isValid = true;
+
+      if (!name) { highlight('reg-fullname', false); isValid = false; } else { highlight('reg-fullname', true); }
+      if (!birth) { highlight('reg-birthdate', false); isValid = false; } else { highlight('reg-birthdate', true); }
+      if (!gender) { highlight('reg-gender', false); isValid = false; } else { highlight('reg-gender', true); }
+      if (!church) { highlight('reg-church', false); isValid = false; } else { highlight('reg-church', true); }
+      if (!transportation) { highlight('reg-transportation', false); isValid = false; } else { highlight('reg-transportation', true); }
+      if (!tshirt) { highlight('reg-tshirtsize', false); isValid = false; } else { highlight('reg-tshirtsize', true); }
+      if (!agree) { highlight('reg-agree', false); isValid = false; } else { highlight('reg-agree', true); }
+
+      // Validate CPF
+      const cpfClean = cpf.replace(/\D/g, '');
+      if (cpfClean.length !== 11) {
+        highlight('reg-cpf', false);
+        isValid = false;
+      } else {
+        highlight('reg-cpf', true);
+      }
+
+      // Validate Phone (DDD + 8 or 9 digits)
+      const phoneClean = phone.replace(/\D/g, '');
+      if (phoneClean.length < 10 || phoneClean.length > 11) {
+        highlight('reg-phone', false);
+        isValid = false;
+      } else {
+        highlight('reg-phone', true);
+      }
+
+      // Validate Email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex || !emailRegex.test(email)) {
+        highlight('reg-email', false);
+        isValid = false;
+      } else {
+        highlight('reg-email', true);
+      }
+
+      // Validate Emergency Contact
+      if (!emergencyName) { highlight('reg-emergency-name', false); isValid = false; } else { highlight('reg-emergency-name', true); }
+      const emergencyPhoneClean = emergencyPhone.replace(/\D/g, '');
+      if (emergencyPhoneClean.length < 10 || emergencyPhoneClean.length > 11) {
+        highlight('reg-emergency-phone', false);
+        isValid = false;
+      } else {
+        highlight('reg-emergency-phone', true);
+      }
+
+      if (hasDietary && !dietaryDetails) { highlight('reg-dietary-details', false); isValid = false; } else { highlight('reg-dietary-details', true); }
+      if (hasAllergies && !allergiesDetails) { highlight('reg-allergies-details', false); isValid = false; } else { highlight('reg-allergies-details', true); }
+      if (hasMedications && !medicationsDetails) { highlight('reg-medications-details', false); isValid = false; } else { highlight('reg-medications-details', true); }
+
+      if (!isValid) {
+        const errorEl = document.getElementById('registration');
+        if (errorEl) errorEl.scrollIntoView({ behavior: 'smooth' });
+        alert('Por favor, preencha corretamente todos os campos marcados em vermelho.');
+        return;
+      }
+
+      // Save Data to Database
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let code = 'SC27-';
+      for (let i = 0; i < 4; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+
+      const newReg = {
+        id: `custom-reg-${Date.now()}`,
+        fullName: name,
+        birthDate: birth,
+        cpf: cpf,
+        rg: '',
+        phone: phone,
+        whatsapp: phone,
+        email: email,
+        address: church,
+        church: church,
+        leader: 'Liderança',
+        hasAllergies: hasAllergies,
+        allergiesDetails: hasAllergies ? allergiesDetails : '',
+        hasDietaryRestriction: hasDietary,
+        dietaryDetails: hasDietary ? dietaryDetails : '',
+        hasMedications: hasMedications,
+        medicationsDetails: hasMedications ? medicationsDetails : '',
+        emergencyContact: emergencyName,
+        emergencyPhone: emergencyPhone,
+        tshirtSize: tshirt,
+        transportation: transportation,
+        notes: notes,
+        paymentMethod: 'Cartão / Pix',
+        status: 'Pendente',
+        createdAt: new Date().toISOString(),
+        registrationCode: code,
+        amountPaid: 0
+      };
+
+      registrations.push(newReg);
+      localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(registrations));
+
+      // Show Custom Loading Overlay message
+      regSuccessData = newReg;
+      regFormStatus = 'submitting';
+      renderRegistrationArea();
+
+      // Forward to payment link in 2 seconds exactly
       setTimeout(() => {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let code = 'SC27-';
-        for (let i = 0; i < 4; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
-
-        const newReg = {
-          id: `custom-reg-${Date.now()}`,
-          fullName: name,
-          birthDate: birth,
-          cpf: cpf,
-          rg: rg,
-          phone: phone,
-          whatsapp: phone,
-          email: email,
-          address: address,
-          church: church,
-          leader: leader,
-          hasAllergies: document.getElementById('reg-has-allergies').checked,
-          allergiesDetails: document.getElementById('reg-allergies-details').value,
-          emergencyContact: emergency,
-          tshirtSize: tshirt,
-          paymentMethod: pay,
-          status: 'Pendente',
-          createdAt: new Date().toISOString(),
-          registrationCode: code,
-          amountPaid: 0
-        };
-
-        registrations.push(newReg);
-        localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(registrations));
-
-        regSuccessData = newReg;
-        regFormStatus = 'success';
-        
-        renderRegistrationArea();
-        renderStats();
-      }, 1000);
+        window.location.href = "https://checkout.infinitepay.io/vanessa-bar1206/nQDs7pGbyc";
+      }, 2000);
     }
 
     function loginAndGoToParticipant(email, code) {
@@ -1123,17 +1606,17 @@
 
     function renderAdminPortal() {
       const container = document.getElementById('admin-container');
-      const baseSpots = 52;
-      const customRegs = registrations.filter(r => !r.id.startsWith('reg-'));
-      const filledSpots = baseSpots + customRegs.length;
+      const activeRegs = registrations.filter(r => r && r.id && !r.id.startsWith('reg-'));
+      const filledSpots = activeRegs.filter(r => r.status === 'Confirmada').length;
 
-      let totalRevenue = 26000; 
-      let pendingAmount = 875;
+      let totalRevenue = 0;
+      let pendingAmount = 0;
 
-      registrations.forEach(r => {
-        if (r.id.startsWith('custom-')) {
-          totalRevenue += r.amountPaid;
-          pendingAmount += (500 - r.amountPaid);
+      activeRegs.forEach(r => {
+        if (r.status === 'Confirmada') {
+          totalRevenue += (r.amountPaid || 0);
+        } else {
+          pendingAmount += (500 - (r.amountPaid || 0));
         }
       });
 
@@ -1278,7 +1761,7 @@
       const idx = registrations.findIndex(r => r.id === id);
       if (idx !== -1) {
         registrations[idx].status = 'Confirmada';
-        registrations[idx].amountPaid = 280;
+        registrations[idx].amountPaid = 500;
         localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(registrations));
         renderAdminPortal();
         renderStats();
@@ -1311,7 +1794,7 @@
       const formattedUrl = formatEmbedUrl(url);
       localStorage.setItem(VIDEO_KEY, formattedUrl);
       promoVideo = formattedUrl;
-      document.getElementById('promo-video-player').src = formattedUrl;
+      renderPromoVideo();
       document.getElementById('admin-video-url').value = formattedUrl;
       alert('Vídeo promocional atualizado com sucesso!');
     }
