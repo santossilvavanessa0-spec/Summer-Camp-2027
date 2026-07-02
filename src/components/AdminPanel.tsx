@@ -239,10 +239,10 @@ export default function AdminPanel({ onLogout, onRefreshStats }: AdminPanelProps
         {/* Bento Stats Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {[
-            { label: 'Inscritos Totais', value: stats.filledSpots, icon: <Users className="w-6 h-6 text-orange-400" />, sub: 'Vagas de 180' },
+            { label: 'Inscritos Totais', value: stats.filledSpots, icon: <Users className="w-6 h-6 text-orange-400" />, sub: 'Vagas de 80' },
             { label: 'Arrecadação Caixa', value: `R$ ${stats.totalRevenue},00`, icon: <DollarSign className="w-6 h-6 text-emerald-400" />, sub: 'Valores confirmados' },
             { label: 'Pagamentos Pendentes', value: `R$ ${stats.pendingAmount},00`, icon: <Clock className="w-6 h-6 text-yellow-400" />, sub: 'Aguardando validação' },
-            { label: 'Vagas Livres', value: 180 - stats.filledSpots, icon: <Sparkles className="w-6 h-6 text-sky-400" />, sub: 'Último lote' }
+            { label: 'Vagas Livres', value: 80 - stats.filledSpots, icon: <Sparkles className="w-6 h-6 text-sky-400" />, sub: 'Último lote' }
           ].map((item, idx) => (
             <div key={idx} className="glass-card rounded-2xl p-5 border border-white/5 relative overflow-hidden shadow-md">
               <div className="flex justify-between items-start">
@@ -427,21 +427,21 @@ export default function AdminPanel({ onLogout, onRefreshStats }: AdminPanelProps
             <form onSubmit={handleSaveVideo} className="space-y-4 bg-[#0a1226]/50 p-5 rounded-2xl border border-white/5">
               <h4 className="text-sm font-bold text-white font-display flex items-center gap-2">
                 <Film className="w-4 h-4 text-orange-400" />
-                <span>Vídeo Promocional (YouTube Embed)</span>
+                <span>Vídeo Promocional (YouTube / Kapwing)</span>
               </h4>
               
               <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-gray-300">URL do Link de Incorporação (iframe)</label>
+                <label className="text-[11px] font-semibold text-gray-300">URL do Link (YouTube ou Kapwing)</label>
                 <input
                   type="text"
                   required
-                  placeholder="Ex: https://www.youtube.com/embed/WJ69r9sHn8I"
+                  placeholder="Ex: https://www.kapwing.com/videos/6a456e967d73370f680d63c9"
                   value={videoUrlInput}
                   onChange={(e) => setVideoUrlInput(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500 font-mono"
                 />
                 <p className="text-[10px] text-gray-500">
-                  Dica: Use links no formato <code className="text-orange-400 font-mono">/embed/...</code> para funcionamento correto do player.
+                  Dica: Você pode colar links normais ou links de incorporação do <code className="text-orange-400 font-mono">YouTube</code> ou <code className="text-orange-400 font-mono">Kapwing</code>. Eles serão formatados automaticamente.
                 </p>
               </div>
 
@@ -488,10 +488,6 @@ export default function AdminPanel({ onLogout, onRefreshStats }: AdminPanelProps
                   >
                     <option value="Gincanas">Gincanas</option>
                     <option value="Louvor">Louvor</option>
-                    <option value="Fogueira">Fogueira</option>
-                    <option value="Lazer">Lazer</option>
-                    <option value="Tribos">Tribos</option>
-                    <option value="Ministrações">Ministrações</option>
                   </select>
                 </div>
               </div>

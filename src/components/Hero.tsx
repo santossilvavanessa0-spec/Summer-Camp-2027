@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, MapPin, Users, Flame, ChevronDown } from 'lucide-react';
 import { getStats } from '../utils/db';
+const heroCover = 'https://i.postimg.cc/CMRss802/capa.jpg';
 
 interface HeroProps {
   onNavigate: (sectionId: string) => void;
@@ -52,7 +53,7 @@ export default function Hero({ onNavigate, updateTrigger }: HeroProps) {
       {/* Imagem de Fundo Completa com Overlays */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2000&auto=format&fit=crop"
+          src={heroCover}
           alt="Jovens comemorando e adorando"
           className="w-full h-full object-cover object-center scale-105 filter brightness-[0.25] contrast-[1.05]"
           referrerPolicy="no-referrer"

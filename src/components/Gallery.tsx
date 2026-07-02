@@ -5,9 +5,16 @@ import { getGalleryImages, getPromoVideo } from '../utils/db';
 export default function Gallery() {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('Todas');
 
   const galleryImages = getGalleryImages();
   const videoUrl = getPromoVideo();
+
+  const categories = ['Todas', 'Louvor', 'Gincanas'];
+
+  const filteredImages = activeFilter === 'Todas'
+    ? galleryImages
+    : galleryImages.filter(img => img.category === activeFilter);
 
   const openLightbox = (index: number) => {
     setSelectedIdx(index);
@@ -21,15 +28,15 @@ export default function Gallery() {
 
   const nextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (selectedIdx !== null && galleryImages.length > 0) {
-      setSelectedIdx((selectedIdx + 1) % galleryImages.length);
+    if (selectedIdx !== null && filteredImages.length > 0) {
+      setSelectedIdx((selectedIdx + 1) % filteredImages.length);
     }
   };
 
   const prevImage = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (selectedIdx !== null && galleryImages.length > 0) {
-      setSelectedIdx((selectedIdx - 1 + galleryImages.length) % galleryImages.length);
+    if (selectedIdx !== null && filteredImages.length > 0) {
+      setSelectedIdx((selectedIdx - 1 + filteredImages.length) % filteredImages.length);
     }
   };
 
@@ -101,10 +108,30 @@ export default function Gallery() {
           </div>
         </div>
 
+        {/* Category Filter Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => {
+                setActiveFilter(cat);
+                setSelectedIdx(null); // Close lightbox if filter changes to avoid mismatch
+              }}
+              className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 border ${
+                activeFilter === cat
+                  ? 'bg-gradient-to-r from-orange-600 to-amber-500 border-transparent text-white shadow-lg shadow-orange-500/25'
+                  : 'border-white/10 text-gray-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
         {/* Pinterest-like Masonry Grid Layout */}
-        {galleryImages.length > 0 ? (
+        {filteredImages.length > 0 ? (
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-            {galleryImages.map((img, index) => (
+            {filteredImages.map((img, index) => (
               <div
                 key={img.id}
                 onClick={() => openLightbox(index)}
@@ -137,13 +164,13 @@ export default function Gallery() {
         ) : (
           <div className="text-center py-12 border border-dashed border-white/10 rounded-3xl bg-white/5">
             <ImageIcon className="w-12 h-12 text-gray-500 mx-auto mb-3" />
-            <p className="text-gray-400 text-sm">Nenhuma foto adicionada na galeria ainda.</p>
+            <p className="text-gray-400 text-sm">Nenhuma foto adicionada nesta categoria ainda.</p>
           </div>
         )}
       </div>
 
       {/* Lightbox / Modal */}
-      {selectedIdx !== null && galleryImages[selectedIdx] && (
+      {selectedIdx !== null && filteredImages[selectedIdx] && (
         <div
           onClick={closeLightbox}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-md transition-opacity duration-300 p-4"
@@ -177,18 +204,18 @@ export default function Gallery() {
           {/* Main Content Area */}
           <div className="max-w-5xl max-h-[85vh] flex flex-col items-center relative" onClick={(e) => e.stopPropagation()}>
             <img
-              src={galleryImages[selectedIdx].url}
-              alt={galleryImages[selectedIdx].title}
+              src={filteredImages[selectedIdx].url}
+              alt={filteredImages[selectedIdx].title}
               className="max-w-full max-h-[75vh] object-contain rounded-2xl border border-white/10 shadow-2xl animate-in zoom-in-95 duration-200"
               referrerPolicy="no-referrer"
             />
             
             <div className="mt-4 text-center max-w-2xl px-4">
               <span className="text-xs font-mono font-bold text-orange-400 uppercase tracking-widest bg-orange-500/10 px-2.5 py-1 rounded-full">
-                {galleryImages[selectedIdx].category}
+                {filteredImages[selectedIdx].category}
               </span>
               <h3 className="text-xl md:text-2xl font-bold text-white font-display mt-2">
-                {galleryImages[selectedIdx].title}
+                {filteredImages[selectedIdx].title}
               </h3>
             </div>
           </div>

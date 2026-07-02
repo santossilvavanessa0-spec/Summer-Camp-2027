@@ -7,8 +7,7 @@ export enum RegistrationStatus {
 export enum PaymentMethod {
   PIX = 'PIX',
   CARD = 'Cartão de Crédito',
-  CASH = 'Dinheiro',
-  INSTALLMENT = 'Parcelado'
+  CASH = 'Dinheiro'
 }
 
 export enum TshirtSize {

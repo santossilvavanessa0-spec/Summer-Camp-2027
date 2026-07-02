@@ -468,7 +468,7 @@ export default function ParticipantArea({ user, onLoginSuccess, onLogout }: Part
 
                 <div className="flex items-center justify-between border-t border-white/5 pt-3">
                   <span className="text-xs text-gray-400">Custo Total:</span>
-                  <span className="text-sm font-semibold text-white">R$ 280,00</span>
+                  <span className="text-sm font-semibold text-white">R$ 500,00</span>
                 </div>
               </div>
             </div>
@@ -485,7 +485,7 @@ export default function ParticipantArea({ user, onLoginSuccess, onLogout }: Part
                   <strong className="text-white select-all">12.345.678/0001-99</strong>
                 </p>
                 <p className="text-[10px] text-gray-400 font-sans">
-                  Após realizar o PIX de R$ 280,00 (ou da primeira parcela), envie o comprovante para os líderes da Juventude Convictos para liberação da vaga.
+                  Após realizar o PIX de R$ 500,00, envie o comprovante para os líderes da Juventude Convictos para liberação da vaga.
                 </p>
               </div>
             ) : (
@@ -501,8 +501,8 @@ export default function ParticipantArea({ user, onLoginSuccess, onLogout }: Part
             )}
           </div>
 
-          {/* Column 3: Quick kit details & documents download */}
-          <div className="glass-card rounded-3xl p-6 border border-white/10 shadow-xl flex flex-col justify-between min-h-[380px] space-y-4">
+          {/* Column 3: Quick kit details */}
+          <div className="glass-card rounded-3xl p-6 border border-white/10 shadow-xl flex flex-col justify-start space-y-4">
             <div className="space-y-4">
               <h3 className="text-lg font-bold text-white font-display border-b border-white/10 pb-2 flex items-center gap-1.5">
                 <FileText className="w-5 h-5 text-orange-400" />
@@ -523,21 +523,6 @@ export default function ParticipantArea({ user, onLoginSuccess, onLogout }: Part
                   <p className="text-xs text-gray-200 font-medium truncate">{regData.church} / {regData.leader}</p>
                 </div>
               </div>
-            </div>
-
-            {/* Download section for authorization */}
-            <div className="space-y-2.5">
-              <span className="text-[10px] text-gray-400 uppercase font-mono block">Documento Obrigatório (Menores):</span>
-              <button
-                onClick={printAuthorization}
-                className="w-full py-3.5 rounded-xl font-bold border border-white/20 hover:border-white/40 text-xs text-white hover:bg-white/5 cursor-pointer flex items-center justify-center space-x-1.5"
-              >
-                <Download className="w-4 h-4 text-orange-400" />
-                <span>Baixar Autorização (PDF)</span>
-              </button>
-              <p className="text-[10px] text-gray-400 text-center leading-normal">
-                Imprima, peça para seu responsável legal assinar e entregue aos líderes no embarque.
-              </p>
             </div>
           </div>
 

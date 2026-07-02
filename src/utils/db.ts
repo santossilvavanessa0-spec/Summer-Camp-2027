@@ -8,7 +8,7 @@ const CURRENT_USER_KEY = 'summer_camp_2027_current_user';
 const GALLERY_KEY = 'summer_camp_2027_gallery';
 const VIDEO_KEY = 'summer_camp_2027_video_url';
 
-const DEFAULT_VIDEO_URL = 'https://www.youtube.com/embed/WJ69r9sHn8I'; // Real high-energy camp highlights
+const DEFAULT_VIDEO_URL = 'https://www.kapwing.com/e/6a456e967d73370f680d63c9'; // Real retiro highlights from Kapwing
 
 export interface LoggedInUser {
   role: 'admin' | 'participant';
@@ -47,16 +47,34 @@ export function initDB() {
   }
   if (!localStorage.getItem(STATS_KEY)) {
     localStorage.setItem(STATS_KEY, JSON.stringify({
-      filledSpots: 132, // Start with 132 pre-filled spots out of 180 as requested
-      totalSpots: 180,
-      totalRevenue: 37800, // Based on initial confirmados
-      pendingAmount: 1120
+      filledSpots: 52, // Start with 52 pre-filled spots out of 80 as requested
+      totalSpots: 80,
+      totalRevenue: 26000, // Based on initial confirmados (52 * 500)
+      pendingAmount: 875
     }));
   }
-  if (!localStorage.getItem(GALLERY_KEY)) {
+  const storedGallery = localStorage.getItem(GALLERY_KEY);
+  if (!storedGallery) {
     localStorage.setItem(GALLERY_KEY, JSON.stringify(GALLERY_IMAGES));
+  } else {
+    try {
+      let parsed = JSON.parse(storedGallery);
+      // Remove the requested mock images (g-1, g-2, g-3, g-4) if present
+      const filtered = parsed.filter((img: any) => img && img.id && !['g-1', 'g-2', 'g-3', 'g-4'].includes(img.id));
+      
+      // Check for any missing images from GALLERY_IMAGES and add them
+      const storedIds = new Set(filtered.map((img: any) => img.id));
+      const missing = GALLERY_IMAGES.filter(img => !storedIds.has(img.id));
+      
+      if (filtered.length !== parsed.length || missing.length > 0) {
+        localStorage.setItem(GALLERY_KEY, JSON.stringify([...filtered, ...missing]));
+      }
+    } catch (e) {
+      localStorage.setItem(GALLERY_KEY, JSON.stringify(GALLERY_IMAGES));
+    }
   }
-  if (!localStorage.getItem(VIDEO_KEY)) {
+  const currentVideo = localStorage.getItem(VIDEO_KEY);
+  if (!currentVideo || currentVideo === 'https://www.youtube.com/embed/WJ69r9sHn8I') {
     localStorage.setItem(VIDEO_KEY, DEFAULT_VIDEO_URL);
   }
 }
@@ -81,7 +99,7 @@ export function getStats(): SystemStats {
     const regs = getRegistrations();
     const customRegsCount = regs.filter(r => !r.id.startsWith('reg-')).length;
     
-    const baseFilled = 132;
+    const baseFilled = 52;
     const filled = baseFilled + customRegsCount;
     
     // Calculate financial totals
@@ -93,21 +111,21 @@ export function getStats(): SystemStats {
         totalRevenue += r.amountPaid;
       } else if (r.status === RegistrationStatus.PENDING) {
         totalRevenue += r.amountPaid;
-        pendingAmount += (280 - r.amountPaid);
+        pendingAmount += (500 - r.amountPaid);
       }
     });
 
     const stats: SystemStats = {
-      filledSpots: Math.min(filled, 180),
-      totalSpots: 180,
-      totalRevenue: 37800 + (totalRevenue - 910), // offset by initial mock values
-      pendingAmount: 1120 + pendingAmount
+      filledSpots: Math.min(filled, 80),
+      totalSpots: 80,
+      totalRevenue: 26000 + (totalRevenue - 1625), // offset by initial mock values
+      pendingAmount: 875 + pendingAmount
     };
     
     localStorage.setItem(STATS_KEY, JSON.stringify(stats));
     return stats;
   }
-  return { filledSpots: 132, totalSpots: 180, totalRevenue: 37800, pendingAmount: 1120 };
+  return { filledSpots: 52, totalSpots: 80, totalRevenue: 26000, pendingAmount: 875 };
 }
 
 function updateStats() {
@@ -148,7 +166,7 @@ export function updateRegistrationStatus(id: string, status: RegistrationStatus,
     if (amountPaid !== undefined) {
       regs[index].amountPaid = amountPaid;
     } else if (status === RegistrationStatus.CONFIRMED) {
-      regs[index].amountPaid = 280; // Full value
+      regs[index].amountPaid = 500; // Full value
     }
     saveRegistrations(regs);
   }
@@ -260,12 +278,39 @@ export function deleteGalleryImage(id: string): any[] {
   return filtered;
 }
 
+export function formatEmbedUrl(url: string): string {
+  if (!url) return '';
+  url = url.trim();
+
+  // 1. Kapwing:
+  // Examples:
+  // https://www.kapwing.com/videos/6a456e967d73370f680d63c9
+  // https://www.kapwing.com/w/6a456e967d73370f680d63c9
+  // https://www.kapwing.com/e/6a456e967d73370f680d63c9
+  const kapwingMatch = url.match(/kapwing\.com\/(?:videos|w|e)\/([a-zA-Z0-9]+)/i);
+  if (kapwingMatch) {
+    return `https://www.kapwing.com/e/${kapwingMatch[1]}`;
+  }
+
+  // 2. YouTube:
+  // Examples:
+  // https://www.youtube.com/watch?v=WJ69r9sHn8I
+  // https://youtu.be/WJ69r9sHn8I
+  // https://www.youtube.com/embed/WJ69r9sHn8I
+  const youtubeMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i);
+  if (youtubeMatch) {
+    return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+  }
+
+  return url;
+}
+
 export function getPromoVideo(): string {
   initDB();
   const url = localStorage.getItem(VIDEO_KEY);
-  return url || DEFAULT_VIDEO_URL;
+  return formatEmbedUrl(url || DEFAULT_VIDEO_URL);
 }
 
 export function savePromoVideo(url: string) {
-  localStorage.setItem(VIDEO_KEY, url);
+  localStorage.setItem(VIDEO_KEY, formatEmbedUrl(url));
 }

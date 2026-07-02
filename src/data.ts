@@ -28,7 +28,7 @@ export const FAQs: FaqItem[] = [
   {
     id: 'faq-2',
     question: 'Qual a idade mínima?',
-    answer: 'A idade mínima recomendada é de 12 anos completos até a data do evento. Menores de 18 anos precisam de autorização assinada pelos pais ou responsáveis legais.'
+    answer: 'A idade mínima recomendada é de 12 anos completos até a data do evento.'
   },
   {
     id: 'faq-3',
@@ -38,7 +38,7 @@ export const FAQs: FaqItem[] = [
   {
     id: 'faq-4',
     question: 'Como funciona o parcelamento e formas de pagamento?',
-    answer: 'Oferecemos pagamento via PIX, Cartão de Crédito (com opção de parcelamento em até 10x), Dinheiro ou carnê parcelado com os líderes da Juventude Convictos. A vaga é confirmada mediante o pagamento da primeira parcela ou confirmação do PIX/Cartão.'
+    answer: 'Oferecemos pagamento via PIX, Cartão de Crédito (com opção de parcelamento em até 10x) ou Dinheiro. A vaga é confirmada mediante o pagamento ou confirmação do PIX/Cartão.'
   },
   {
     id: 'faq-5',
@@ -50,8 +50,8 @@ export const FAQs: FaqItem[] = [
 export const HIGHLIGHTS: HighlightItem[] = [
   {
     id: 'h-1',
-    title: 'Ministrações',
-    description: 'Palavras impactantes que trarão direção, sabedoria e transformação para sua caminhada cristã.',
+    title: 'Oficinas Temáticas',
+    description: 'Bate-papo de valor, aconselhamento e palestras focadas nas dúvidas reais da juventude de hoje.',
     iconName: 'Flame'
   },
   {
@@ -69,7 +69,7 @@ export const HIGHLIGHTS: HighlightItem[] = [
   {
     id: 'h-4',
     title: 'Competicões & Troféu',
-    description: 'Dispute campeonatos esportivos e gincanas com sua tribo para conquistar o grande troféu de 2027!',
+    description: 'Dispute campeonatos esportivos e gincanas com sua equipe para conquistar o grande troféu de 2027!',
     iconName: 'Trophy'
   },
   {
@@ -106,7 +106,7 @@ export const TIMELINE: TimelineDay[] = [
       'Check-in e Embarque na IEQ Inhoaíba',
       'Chegada ao Sítio & Acomodação nos Quartos',
       'Grande Culto de Abertura (Start!)',
-      'Integração das Tribos & Ceia Noturna'
+      'Integração Geral & Lanche Noturno'
     ]
   },
   {
@@ -127,7 +127,7 @@ export const TIMELINE: TimelineDay[] = [
       'Oração ao Ar Livre & Café da Manhã',
       'Finais das Competições Esportivas',
       'Almoço & Tempo Livre nas Piscinas',
-      'Dinâmicas Especiais de Tribo',
+      'Dinâmicas Especiais de Integração',
       'Culto da Fogueira (Clamor e Espírito Santo)'
     ]
   },
@@ -136,7 +136,7 @@ export const TIMELINE: TimelineDay[] = [
     title: 'Encerramento & Aliança',
     events: [
       'Café da Manhã de Despedida',
-      'Grande Culto de Santa Ceia',
+      'Grande Culto de Celebração',
       'Entrega de Premiações & Troféus',
       'Foto Oficial e Embarque de Retorno'
     ]
@@ -167,7 +167,7 @@ export const MOCK_REGISTRATIONS: Registration[] = [
     status: RegistrationStatus.CONFIRMED,
     createdAt: '2026-06-25T14:30:00.000Z',
     registrationCode: 'SC27-A8B9',
-    amountPaid: 280
+    amountPaid: 500
   },
   {
     id: 'reg-2',
@@ -191,7 +191,7 @@ export const MOCK_REGISTRATIONS: Registration[] = [
     status: RegistrationStatus.CONFIRMED,
     createdAt: '2026-06-28T10:15:00.000Z',
     registrationCode: 'SC27-F5G4',
-    amountPaid: 280
+    amountPaid: 500
   },
   {
     id: 'reg-3',
@@ -211,11 +211,11 @@ export const MOCK_REGISTRATIONS: Registration[] = [
     medicationsDetails: 'Toma antialérgico se tiver crise de rinite',
     emergencyContact: 'Mãe: Sandra (21) 96655-4433',
     tshirtSize: TshirtSize.P,
-    paymentMethod: PaymentMethod.INSTALLMENT,
+    paymentMethod: PaymentMethod.PIX,
     status: RegistrationStatus.PENDING,
     createdAt: '2026-06-29T18:40:00.000Z',
     registrationCode: 'SC27-Y2T1',
-    amountPaid: 70, // Paid 1st installment
+    amountPaid: 125, // Paid 1st installment
     installmentsCount: 4
   },
   {
@@ -264,45 +264,45 @@ export const MOCK_REGISTRATIONS: Registration[] = [
     status: RegistrationStatus.CONFIRMED,
     createdAt: '2026-06-30T22:10:00.000Z',
     registrationCode: 'SC27-Q3W4',
-    amountPaid: 280
+    amountPaid: 500
   }
 ];
 
 export const GALLERY_IMAGES = [
   {
-    id: 'g-1',
-    url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop',
-    title: 'Momento de Louvor & Adoração Intensa',
+    id: 'g-new-1',
+    url: 'https://i.postimg.cc/BvW2p7q5/culto.jpg',
+    title: 'Culto de Adoração e Entrega',
     category: 'Louvor'
   },
   {
-    id: 'g-2',
-    url: 'https://images.unsplash.com/photo-1472289065668-ce650ac443d2?q=80&w=1200&auto=format&fit=crop',
-    title: 'Gincana na lama e superação',
+    id: 'g-new-2',
+    url: 'https://i.postimg.cc/sDvSrCxS/palavra.jpg',
+    title: 'Ministração da Palavra',
+    category: 'Louvor'
+  },
+  {
+    id: 'g-new-3',
+    url: 'https://i.postimg.cc/6QL409bt/oracao.jpg',
+    title: 'Momento de Oração e Mover',
+    category: 'Louvor'
+  },
+  {
+    id: 'g-new-4',
+    url: 'https://i.postimg.cc/Zn0946bv/redencao.jpg',
+    title: 'Adoração e Redenção',
+    category: 'Louvor'
+  },
+  {
+    id: 'g-new-5',
+    url: 'https://i.postimg.cc/m2zcn3pp/equipe-azul.jpg',
+    title: 'Competições - Equipe Azul',
     category: 'Gincanas'
   },
   {
-    id: 'g-3',
-    url: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=1200&auto=format&fit=crop',
-    title: 'Culto da fogueira ao ar livre',
-    category: 'Fogueira'
-  },
-  {
-    id: 'g-4',
-    url: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop',
-    title: 'Momentos de comunhão na piscina',
-    category: 'Lazer'
-  },
-  {
-    id: 'g-5',
-    url: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1200&auto=format&fit=crop',
-    title: 'Integração de tribos e dinâmicas',
-    category: 'Tribos'
-  },
-  {
-    id: 'g-6',
-    url: 'https://images.unsplash.com/photo-1523580494863-6f3031224574?q=80&w=1200&auto=format&fit=crop',
-    title: 'Palavras que transformam corações',
-    category: 'Ministrações'
+    id: 'g-new-6',
+    url: 'https://i.postimg.cc/s2c1WT1c/Equipe-roxa.jpg',
+    title: 'Competições - Equipe Roxa',
+    category: 'Gincanas'
   }
 ];

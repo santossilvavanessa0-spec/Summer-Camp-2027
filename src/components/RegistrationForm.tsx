@@ -13,11 +13,9 @@ export default function RegistrationForm({ onSuccess, onNavigate }: Registration
   const [fullName, setFullName] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [cpf, setCpf] = useState('');
-  const [rg, setRg] = useState('');
   const [phone, setPhone] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
   const [church, setChurch] = useState('');
   const [leader, setLeader] = useState('');
   const [hasAllergies, setHasAllergies] = useState(false);
@@ -62,14 +60,11 @@ export default function RegistrationForm({ onSuccess, onNavigate }: Registration
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!fullName.trim()) newErrors.fullName = 'O nome completo é obrigatório.';
-    if (!birthDate) newErrors.birthDate = 'A data de nascimento é obrigatória.';
     if (!cpf.trim()) newErrors.cpf = 'O CPF é obrigatório.';
     if (cpf.length < 14) newErrors.cpf = 'Digite um CPF válido.';
-    if (!rg.trim()) newErrors.rg = 'O RG é obrigatório.';
     if (!phone.trim()) newErrors.phone = 'O telefone é obrigatório.';
     if (!whatsapp.trim()) newErrors.whatsapp = 'O WhatsApp é obrigatório.';
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = 'Digite um e-mail válido.';
-    if (!address.trim()) newErrors.address = 'O endereço residencial é obrigatório.';
     if (!church.trim()) newErrors.church = 'Informe a igreja que você frequenta.';
     if (!leader.trim()) newErrors.leader = 'Informe o nome de seu líder/pastor.';
     if (!emergencyContact.trim()) newErrors.emergencyContact = 'O contato de emergência é obrigatório.';
@@ -112,7 +107,7 @@ export default function RegistrationForm({ onSuccess, onNavigate }: Registration
         emergencyContact,
         tshirtSize,
         paymentMethod,
-        installmentsCount: paymentMethod === PaymentMethod.INSTALLMENT ? installments : undefined
+        installmentsCount: undefined
       };
 
       try {
@@ -245,7 +240,7 @@ export default function RegistrationForm({ onSuccess, onNavigate }: Registration
             Garante a sua vaga no <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-300">Summer Camp 2027</span>
           </h2>
           <p className="text-gray-400 text-base">
-            Preencha todos os dados com atenção. Menores de 18 anos devem indicar contatos válidos de seus responsáveis.
+            Preencha todos os dados com atenção para garantir sua inscrição com sucesso.
           </p>
         </div>
 
@@ -531,28 +526,6 @@ export default function RegistrationForm({ onSuccess, onNavigate }: Registration
                     ))}
                   </select>
                 </div>
-
-                {/* Conditional installments options */}
-                {paymentMethod === PaymentMethod.INSTALLMENT && (
-                  <div className="space-y-1.5 md:col-span-2 bg-orange-500/5 p-4 rounded-xl border border-orange-500/10 animate-in slide-in-from-top-2 duration-200">
-                    <label className="text-xs font-semibold text-gray-300">Em quantas parcelas deseja dividir com a liderança?</label>
-                    <div className="flex items-center space-x-3 mt-1.5">
-                      {[1, 2, 3, 4, 5].map((n) => (
-                        <button
-                          key={n}
-                          type="button"
-                          onClick={() => setInstallments(n)}
-                          className={`w-10 h-10 rounded-xl text-sm font-bold border transition-all ${installments === n ? 'bg-orange-500 border-orange-500 text-white' : 'bg-slate-900 border-white/10 text-gray-400 hover:text-white hover:border-white/25'}`}
-                        >
-                          {n}x
-                        </button>
-                      ))}
-                      <span className="text-xs text-gray-400 pl-2">
-                        Parcelas de R$ {Math.ceil(280 / installments)},00 diretamente via PIX/Carnê mensal.
-                      </span>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
 

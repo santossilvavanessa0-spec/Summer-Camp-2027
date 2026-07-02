@@ -53,7 +53,7 @@ export default function Pricing({ onNavigate }: PricingProps) {
             {/* Price section */}
             <div className="flex items-baseline mb-6">
               <span className="text-xl font-bold text-orange-400 mr-2">R$</span>
-              <span className="text-6xl font-black font-display text-white tracking-tight">280</span>
+              <span className="text-6xl font-black font-display text-white tracking-tight">500</span>
               <span className="text-lg font-bold text-gray-400 ml-1">,00</span>
               <span className="text-xs text-gray-400 ml-3 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg">Valor total</span>
             </div>
@@ -91,7 +91,7 @@ export default function Pricing({ onNavigate }: PricingProps) {
                 <h4 className="font-bold text-white text-md font-display">Facilidade de Pagamento</h4>
               </div>
               <p className="text-xs text-gray-400 font-sans leading-relaxed">
-                Parcele via <strong className="text-white">cartão de crédito em até 10x</strong> ou divida em <strong className="text-white">mensalidades via PIX ou carnê</strong> diretamente com os organizadores da Juventude Convictos.
+                Parcele via <strong className="text-white">cartão de crédito em até 10x</strong> ou realize transferência via <strong className="text-white">PIX</strong> diretamente com os organizadores da Juventude Convictos.
               </p>
             </div>
 
@@ -108,13 +108,7 @@ export default function Pricing({ onNavigate }: PricingProps) {
               </p>
             </div>
 
-            {/* Alert info box */}
-            <div className="flex items-start space-x-3 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
-              <AlertCircle className="w-5 h-5 text-yellow-500 shrink-0" />
-              <p className="text-xs text-yellow-300 leading-relaxed font-sans">
-                <strong>Atenção menores de 18 anos:</strong> Será obrigatório entregar a autorização preenchida e assinada por seus responsáveis no dia do embarque. Baixe o documento na área do participante após se inscrever.
-              </p>
-            </div>
+
 
           </div>
 

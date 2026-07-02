@@ -1,13 +1,1394 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summer Camp 2027 - Juventude Convictos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #050b18; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #ea580c; }
+    html { scroll-behavior: smooth; }
+    .glass { background: rgba(8, 16, 33, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+  </style>
+</head>
+<body class="bg-[#050b18] text-white selection:bg-orange-500 selection:text-white font-sans antialiased min-h-screen overflow-x-hidden">
 
+  <!-- NAVIGATION -->
+  <nav id="main-navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 glass border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <div class="flex items-center space-x-2 cursor-pointer" onclick="navigateTo('hero')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-yellow-500 flex items-center justify-center shadow-lg shadow-orange-500/20">
+          <i data-lucide="compass" class="w-6 h-6 text-white animate-pulse"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-bold font-display tracking-wider text-white">SUMMER CAMP</span>
+          <span class="text-[9px] font-mono tracking-widest text-orange-400 font-semibold">JUVENTUDE CONVICTOS</span>
+        </div>
+      </div>
+      
+      <div class="hidden lg:flex items-center space-x-1">
+        <button onclick="navigateTo('hero')" class="px-3 py-2 rounded-lg text-sm font-medium text-orange-500 bg-orange-500/10 hover:text-white transition-colors">Início</button>
+        <button onclick="navigateTo('about')" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Sobre</button>
+        <button onclick="navigateTo('highlights')" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Destaques</button>
+        <button onclick="navigateTo('gallery')" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Galeria</button>
+        <button onclick="navigateTo('schedule')" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Programação</button>
+        <button onclick="navigateTo('pricing')" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Valores</button>
+        <button onclick="navigateTo('faq')" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors">FAQ</button>
+        <button onclick="navigateTo('contact')" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Contato</button>
+      </div>
+
+      <div class="hidden lg:flex items-center space-x-3" id="navbar-auth-actions">
+        <!-- Will be dynamically filled by JS -->
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="flex lg:hidden items-center space-x-2">
+        <button onclick="navigateTo('registration')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white shadow-md shadow-orange-500/20">Inscrição</button>
+        <button onclick="toggleMobileMenu()" class="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-white/5 glass py-3 px-2 space-y-1">
+      <button onclick="navigateTo('hero'); toggleMobileMenu()" class="block w-full text-left px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-orange-500 hover:bg-white/5">Início</button>
+      <button onclick="navigateTo('about'); toggleMobileMenu()" class="block w-full text-left px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-orange-500 hover:bg-white/5">Sobre</button>
+      <button onclick="navigateTo('highlights'); toggleMobileMenu()" class="block w-full text-left px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-orange-500 hover:bg-white/5">Destaques</button>
+      <button onclick="navigateTo('gallery'); toggleMobileMenu()" class="block w-full text-left px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-orange-500 hover:bg-white/5">Galeria</button>
+      <button onclick="navigateTo('schedule'); toggleMobileMenu()" class="block w-full text-left px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-orange-500 hover:bg-white/5">Programação</button>
+      <button onclick="navigateTo('pricing'); toggleMobileMenu()" class="block w-full text-left px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-orange-500 hover:bg-white/5">Valores</button>
+      <button onclick="navigateTo('faq'); toggleMobileMenu()" class="block w-full text-left px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-orange-500 hover:bg-white/5">FAQ</button>
+      <button onclick="navigateTo('contact'); toggleMobileMenu()" class="block w-full text-left px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-orange-500 hover:bg-white/5">Contato</button>
+      <div class="border-t border-white/10 pt-3 px-4" id="mobile-auth-actions"></div>
+    </div>
+  </nav>
+
+  <!-- MAIN LANDING VIEW -->
+  <main id="landing-container" class="space-y-0">
+    
+    <!-- HERO -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
+      <div class="absolute inset-0 z-0">
+        <img src="https://i.postimg.cc/CMRss802/capa.jpg" class="w-full h-full object-cover object-center filter brightness-[0.25]" alt="Summer Camp background" referrerPolicy="no-referrer">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#050b18] via-[#050b18]/60 to-transparent"></div>
+      </div>
+
+      <div class="relative z-10 max-w-5xl mx-auto px-4 text-center flex flex-col items-center justify-center space-y-6">
+        <div class="inline-flex items-center space-x-2 bg-orange-500/10 border border-orange-500/30 px-4 py-1.5 rounded-full">
+          <i data-lucide="flame" class="w-4 h-4 text-orange-500 animate-pulse"></i>
+          <span class="text-xs font-mono font-bold tracking-widest text-orange-400 uppercase">Juventude Convictos • IEQ Inhoaíba</span>
+        </div>
+
+        <h1 class="text-5xl md:text-8xl font-extrabold font-display tracking-tight text-white uppercase">
+          SUMMER <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-amber-400 to-yellow-300">CAMP 2027</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-gray-300 max-w-2xl font-light leading-relaxed">
+          Quatro dias que podem <strong class="text-white font-semibold">transformar sua história</strong>. O retiro de carnaval mais esperado do ano.
+        </p>
+
+        <!-- Countdown Timer -->
+        <div class="grid grid-cols-4 gap-3 md:gap-6 max-w-xl w-full">
+          <div class="glass-card rounded-2xl p-4 flex flex-col items-center border border-white/10 relative overflow-hidden">
+            <span id="countdown-days" class="text-3xl md:text-5xl font-black font-mono text-white">00</span>
+            <span class="text-[10px] font-mono tracking-widest uppercase text-orange-400 mt-1">Dias</span>
+          </div>
+          <div class="glass-card rounded-2xl p-4 flex flex-col items-center border border-white/10 relative overflow-hidden">
+            <span id="countdown-hours" class="text-3xl md:text-5xl font-black font-mono text-white">00</span>
+            <span class="text-[10px] font-mono tracking-widest uppercase text-orange-400 mt-1">Horas</span>
+          </div>
+          <div class="glass-card rounded-2xl p-4 flex flex-col items-center border border-white/10 relative overflow-hidden">
+            <span id="countdown-minutes" class="text-3xl md:text-5xl font-black font-mono text-white">00</span>
+            <span class="text-[10px] font-mono tracking-widest uppercase text-orange-400 mt-1">Minutos</span>
+          </div>
+          <div class="glass-card rounded-2xl p-4 flex flex-col items-center border border-white/10 relative overflow-hidden">
+            <span id="countdown-seconds" class="text-3xl md:text-5xl font-black font-mono text-white">00</span>
+            <span class="text-[10px] font-mono tracking-widest uppercase text-orange-400 mt-1">Segundos</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md pt-4">
+          <button onclick="navigateTo('registration')" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-lg bg-gradient-to-r from-orange-600 to-yellow-500 text-white shadow-lg shadow-orange-500/20 hover:scale-105 active:scale-95 transition-all">Quero Participar</button>
+          <button onclick="navigateTo('about')" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-lg border border-white/20 text-white hover:bg-white/5 active:scale-95 transition-all">Saiba Mais</button>
+        </div>
+
+        <!-- Progress Card -->
+        <div class="glass-card rounded-3xl p-6 max-w-xl w-full border border-white/10 shadow-2xl">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-sm font-semibold text-gray-300 flex items-center gap-1.5">
+              <i data-lucide="users" class="w-4 h-4 text-orange-500"></i>
+              <span>Inscrições Confirmadas</span>
+            </span>
+            <span id="progress-text" class="text-sm font-bold text-orange-400 font-mono">0 de 80 vagas</span>
+          </div>
+          <div class="w-full h-3 bg-white/5 rounded-full overflow-hidden p-[2px] border border-white/10 mb-3">
+            <div id="progress-bar" class="h-full rounded-full bg-gradient-to-r from-orange-600 to-yellow-400 shadow-md shadow-orange-500/50 transition-all duration-1000 ease-out" style="width: 0%"></div>
+          </div>
+          <div class="flex justify-between items-center text-xs">
+            <span class="text-red-400 font-bold tracking-wide uppercase flex items-center gap-1 animate-pulse">● Últimas vagas disponíveis!</span>
+            <span class="text-gray-400">Corra para garantir sua vaga</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-24 bg-[#081021] relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center space-x-2 bg-orange-500/10 border border-orange-500/20 px-3.5 py-1 rounded-full">
+            <i data-lucide="sparkles" class="w-4 h-4 text-orange-400"></i>
+            <span class="text-xs font-mono font-bold tracking-wider text-orange-300">PROPÓSITO</span>
+          </div>
+          <h2 class="text-4xl md:text-5xl font-extrabold font-display text-white">Muito mais que <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-400">um retiro</span>.</h2>
+          <p class="text-base text-gray-300 leading-relaxed">Prepare-se para viver dias inesquecíveis de comunhão, adoração, gincanas intensas na lama, competições de tribos e cultos marcantes na fogueira.</p>
+          <p class="text-base text-gray-300 leading-relaxed">No <strong class="text-white">Summer Camp 2027</strong>, geramos um ambiente de aliança e amizades que vai marcar toda a sua juventude. Teremos transporte fretado, acomodações premium e alimentação inclusa.</p>
+        </div>
+        <div class="lg:col-span-5">
+          <div class="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Momentos" referrerPolicy="no-referrer">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#081021] via-transparent to-transparent opacity-80"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    <section id="highlights" class="py-24 bg-[#050b18] relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <span class="text-xs font-mono font-bold tracking-widest text-orange-400 uppercase bg-orange-500/10 px-3.5 py-1.5 rounded-full">Por que ir?</span>
+          <h2 class="text-4xl font-extrabold font-display text-white">O que te espera no retiro</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="glass-card rounded-2xl p-6 border border-white/5">
+            <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4"><i data-lucide="flame" class="w-6 h-6 text-orange-500"></i></div>
+            <h3 class="text-lg font-bold text-white mb-2">Ministrações de Impacto</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Palavras que trarão direção, sabedoria e renovação profunda para a sua caminhada com o Senhor.</p>
+          </div>
+          <div class="glass-card rounded-2xl p-6 border border-white/5">
+            <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4"><i data-lucide="music" class="w-6 h-6 text-orange-500"></i></div>
+            <h3 class="text-lg font-bold text-white mb-2">Louvor & Adoração</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Momentos intensos conduzidos pelo nosso ministério para tocarmos o trono de Deus juntos.</p>
+          </div>
+          <div class="glass-card rounded-2xl p-6 border border-white/5">
+            <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4"><i data-lucide="activity" class="w-6 h-6 text-orange-500"></i></div>
+            <h3 class="text-lg font-bold text-white mb-2">Gincanas e Lama</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Circuitos desafiadores, lama, esporte de tribos e diversão ao ar livre para agitar a galera.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="py-24 bg-[#081021]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div class="text-center max-w-3xl mx-auto space-y-3">
+          <span class="text-xs font-mono font-bold tracking-widest text-orange-400 uppercase bg-orange-500/10 px-3.5 py-1.5 rounded-full">Galeria de Mídia</span>
+          <h2 class="text-4xl font-extrabold font-display text-white">Sinta a Energia do Camp</h2>
+        </div>
+
+        <!-- Video Player -->
+        <div class="max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#050b18] aspect-video">
+          <iframe id="promo-video-player" class="w-full h-full" src="" title="Promo Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="flex flex-wrap items-center justify-center gap-2 pt-4" id="gallery-filters">
+          <!-- Will be dynamically filled by JS -->
+        </div>
+
+        <!-- Image Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="gallery-grid">
+          <!-- Will be dynamically filled by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE SCHEDULE -->
+    <section id="schedule" class="py-24 bg-[#050b18]">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <span class="text-xs font-mono font-bold tracking-widest text-orange-400 uppercase bg-orange-500/10 px-3.5 py-1.5 rounded-full">O Cronograma</span>
+          <h2 class="text-4xl font-extrabold font-display text-white">Linha do Tempo de Atividades</h2>
+        </div>
+        
+        <div class="flex p-1 rounded-xl bg-white/5 border border-white/10 mb-8" id="schedule-tabs">
+          <button onclick="switchScheduleDay(0)" id="sch-tab-0" class="flex-1 py-2.5 text-center text-xs font-bold rounded-lg transition-all bg-orange-500 text-white">Dia 1</button>
+          <button onclick="switchScheduleDay(1)" id="sch-tab-1" class="flex-1 py-2.5 text-center text-xs font-bold rounded-lg transition-all text-gray-400 hover:text-white">Dia 2</button>
+          <button onclick="switchScheduleDay(2)" id="sch-tab-2" class="flex-1 py-2.5 text-center text-xs font-bold rounded-lg transition-all text-gray-400 hover:text-white">Dia 3</button>
+          <button onclick="switchScheduleDay(3)" id="sch-tab-3" class="flex-1 py-2.5 text-center text-xs font-bold rounded-lg transition-all text-gray-400 hover:text-white">Dia 4</button>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 md:p-8 border border-white/5" id="schedule-content">
+          <!-- Dynamically filled by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="py-24 bg-[#081021]">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <span class="text-xs font-mono font-bold tracking-widest text-orange-400 uppercase bg-orange-500/10 px-3.5 py-1.5 rounded-full">Passaporte</span>
+          <h2 class="text-4xl font-extrabold font-display text-white">Investimento e Inclusões</h2>
+        </div>
+
+        <div class="glass-card rounded-3xl border-2 border-orange-500/30 p-8 md:p-12 shadow-2xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-gradient-to-l from-orange-600 to-yellow-500 text-white text-[10px] font-black tracking-widest uppercase px-6 py-2 rounded-bl-3xl">Lote Único</div>
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="space-y-6">
+              <h3 class="text-2xl font-bold font-display text-white">Passaporte Completo</h3>
+              <p class="text-sm text-gray-400">Garanta sua participação no melhor carnaval da sua vida com hospedagem, transporte, alimentação e kit inclusos.</p>
+              <ul class="space-y-3 text-sm text-gray-200">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-orange-400"></i> Hospedagem e lazer no Sítio</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-orange-400"></i> Alimentação completa de 05 a 09</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-orange-400"></i> Ônibus fretado ida e volta</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-orange-400"></i> Kit com Camisa oficial Summer</li>
+              </ul>
+            </div>
+            <div class="text-center md:border-l border-white/10 md:pl-8 py-4 flex flex-col justify-center items-center">
+              <span class="text-xs font-mono text-gray-400 uppercase tracking-widest">Valor Único</span>
+              <div class="flex items-baseline justify-center gap-1 my-2">
+                <span class="text-xl font-bold text-gray-400">R$</span>
+                <span class="text-5xl md:text-6xl font-black text-white font-mono tracking-tight">500</span>
+                <span class="text-lg font-bold text-gray-400">,00</span>
+              </div>
+              <p class="text-xs text-orange-400 font-bold mb-6">Em até 10x no cartão ou à vista via Pix!</p>
+              <button onclick="navigateTo('registration')" class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white hover:scale-105 active:scale-95 transition-all shadow-lg shadow-orange-500/20">Quero me inscrever</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTRATION FORM -->
+    <section id="registration" class="py-24 bg-[#050b18] relative">
+      <div class="max-w-4xl mx-auto px-4" id="registration-content-area">
+        <!-- Dynamically swaps between Form and Success Area inside JS -->
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-24 bg-[#081021]">
+      <div class="max-w-3xl mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <span class="text-xs font-mono font-bold tracking-widest text-orange-400 uppercase bg-orange-500/10 px-3.5 py-1.5 rounded-full">Dúvidas Frequentes</span>
+          <h2 class="text-4xl font-extrabold font-display text-white">Perguntas Comuns</h2>
+        </div>
+
+        <div class="space-y-4" id="faq-list">
+          <!-- Dynamically filled by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-24 bg-[#050b18]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12">
+        <div class="space-y-6">
+          <h2 class="text-3xl font-extrabold font-display text-white">Fale Conosco</h2>
+          <p class="text-sm text-gray-400">A equipe da Juventude Convictos está sempre à sua disposição para tirar dúvidas, realizar credenciamento de lideranças e processar pagamentos.</p>
+          <div class="space-y-4 text-sm text-gray-300">
+            <div class="flex items-center gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-orange-500"></i> <span>Igreja do Evangelho Quadrangular - Inhoaíba (RJ)</span></div>
+            <div class="flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-orange-500"></i> <span>(21) 98765-4321 (Secretaria Convictos)</span></div>
+            <div class="flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-orange-500"></i> <span>contato@convictos.com.br</span></div>
+          </div>
+        </div>
+        <div class="glass-card rounded-2xl p-6 border border-white/5 space-y-4">
+          <h3 class="text-lg font-bold text-white font-display">Envie sua Mensagem</h3>
+          <form onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso! Em breve entraremos em contato.'); this.reset();" class="space-y-3">
+            <input type="text" placeholder="Seu Nome" required class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+            <input type="email" placeholder="Seu E-mail" required class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+            <textarea placeholder="Como podemos ajudar?" required rows="3" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500"></textarea>
+            <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-orange-600 hover:bg-orange-700 text-white transition-all">Enviar Mensagem</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 border-t border-white/5 bg-[#050b18]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-gray-500">
+        <p>© 2027 Summer Camp • Juventude Convictos • IEQ Inhoaíba. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- PARTICIPANT PORTAL VIEW -->
+  <main id="participant-container" class="hidden py-24 min-h-screen">
+    <!-- Dynamically filled by JS -->
+  </main>
+
+  <!-- ADMIN PORTAL VIEW -->
+  <main id="admin-container" class="hidden py-24 min-h-screen">
+    <!-- Dynamically filled by JS -->
+  </main>
+
+  <!-- LOGIN AUTH MODAL -->
+  <div id="auth-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="glass-card rounded-3xl p-6 md:p-8 max-w-md w-full border border-white/10 shadow-2xl relative space-y-6">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 p-2 rounded-full text-gray-400 hover:text-white hover:bg-white/5 transition-all"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <div class="text-center space-y-1">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-orange-600 to-yellow-500 flex items-center justify-center mx-auto mb-2"><i data-lucide="key" class="w-5 h-5 text-white"></i></div>
+        <h3 class="text-xl font-bold text-white font-display">Acessar Conta</h3>
+        <p class="text-xs text-gray-400">Entre para acompanhar sua inscrição ou gerenciar o retiro.</p>
+      </div>
+
+      <div class="flex p-1 rounded-xl bg-white/5 border border-white/5">
+        <button id="tab-btn-participant" onclick="switchAuthTab('participant')" class="flex-1 py-2 text-center rounded-lg text-xs font-bold transition-all bg-orange-500 text-white">Participante</button>
+        <button id="tab-btn-admin" onclick="switchAuthTab('admin')" class="flex-1 py-2 text-center rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white">Líder / Admin</button>
+      </div>
+
+      <div id="auth-error" class="hidden p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-xs text-red-400 flex items-center gap-2"><i data-lucide="shield-alert" class="w-4 h-4 shrink-0"></i><span id="auth-error-msg"></span></div>
+
+      <form id="auth-form" onsubmit="handleAuthLogin(event)" class="space-y-4">
+        <!-- Fields loaded by switchAuthTab -->
+      </form>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX MODAL -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/95 flex flex-col justify-between items-center p-4">
+    <div class="w-full flex justify-end">
+      <button onclick="closeLightbox()" class="p-3 text-white hover:text-orange-500 transition-colors"><i data-lucide="x" class="w-8 h-8"></i></button>
+    </div>
+    <div class="flex-1 w-full max-w-4xl flex items-center justify-between gap-4">
+      <button onclick="prevImage()" class="p-3 text-white hover:text-orange-500 transition-colors"><i data-lucide="chevron-left" class="w-8 h-8"></i></button>
+      <div class="max-h-[70vh] flex items-center justify-center overflow-hidden rounded-xl">
+        <img id="lightbox-img" src="" class="max-w-full max-h-[70vh] object-contain" referrerPolicy="no-referrer">
+      </div>
+      <button onclick="nextImage()" class="p-3 text-white hover:text-orange-500 transition-colors"><i data-lucide="chevron-right" class="w-8 h-8"></i></button>
+    </div>
+    <div class="text-center py-4">
+      <span id="lightbox-category" class="text-xs bg-orange-500/20 text-orange-400 border border-orange-500/30 px-3 py-1 rounded-full uppercase font-mono font-bold tracking-widest"></span>
+      <h3 id="lightbox-title" class="text-lg font-bold text-white mt-2 font-display"></h3>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT SYSTEM -->
+  <script>
+    // Database Storage Setup
+    const REGISTRATIONS_KEY = 'summer_camp_2027_registrations';
+    const STATS_KEY = 'summer_camp_2027_stats';
+    const ANNOUNCEMENTS_KEY = 'summer_camp_2027_announcements';
+    const CURRENT_USER_KEY = 'summer_camp_2027_current_user';
+    const GALLERY_KEY = 'summer_camp_2027_gallery';
+    const VIDEO_KEY = 'summer_camp_2027_video_url';
+
+    const INITIAL_GALLERY = [
+      { id: 'g-new-1', url: 'https://i.postimg.cc/BvW2p7q5/culto.jpg', title: 'Culto de Adoração e Entrega', category: 'Louvor' },
+      { id: 'g-new-2', url: 'https://i.postimg.cc/sDvSrCxS/palavra.jpg', title: 'Ministração da Palavra', category: 'Louvor' },
+      { id: 'g-new-3', url: 'https://i.postimg.cc/6QL409bt/oracao.jpg', title: 'Momento de Oração e Mover', category: 'Louvor' },
+      { id: 'g-new-4', url: 'https://i.postimg.cc/Zn0946bv/redencao.jpg', title: 'Adoração e Redenção', category: 'Louvor' },
+      { id: 'g-new-5', url: 'https://i.postimg.cc/m2zcn3pp/equipe-azul.jpg', title: 'Competições - Equipe Azul', category: 'Gincanas' },
+      { id: 'g-new-6', url: 'https://i.postimg.cc/s2c1WT1c/Equipe-roxa.jpg', title: 'Competições - Equipe Roxa', category: 'Gincanas' }
+    ];
+
+    const INITIAL_REGISTRATIONS = [
+      { id: 'reg-1', fullName: 'Ana Julia de Souza', birthDate: '2008-04-12', cpf: '123.456.789-01', rg: '23.456.789-0', phone: '(21) 98765-4321', whatsapp: '(21) 98765-4321', email: 'anajulia@example.com', address: 'Estrada do Campinho, 1200 - Campo Grande, RJ', church: 'IEQ Inhoaíba', leader: 'Lucas e Amanda', hasAllergies: false, allergiesDetails: '', hasMedications: false, medicationsDetails: '', emergencyContact: 'Mãe: Cláudia (21) 99999-8888', tshirtSize: 'M', paymentMethod: 'PIX', status: 'Confirmada', createdAt: '2026-06-25T14:30:00.000Z', registrationCode: 'SC27-A8B9', amountPaid: 500 }
+    ];
+
+    const INITIAL_ANNOUNCEMENTS = [
+      { id: 'ann-1', title: 'Inscrições Abertas!', content: 'As inscrições para o Summer Camp 2027 estão abertas!', type: 'Todos', sentAt: '2026-06-25T14:00:00.000Z', recipientCount: 1 }
+    ];
+
+    // Timeline days
+    const TIMELINE = [
+      { day: 'Dia 1', title: 'Embarque & Abertura', events: ['Check-in na IEQ Inhoaíba', 'Chegada ao Sítio & Acomodação nos Quartos', 'Grande Culto de Abertura (Start!)', 'Integração Geral & Lanche Noturno'] },
+      { day: 'Dia 2', title: 'Conexão & Adrenalina', events: ['Devocional Matinal & Café da Manhã', 'Gincana Geral - Primeira Etapa', 'Almoço Especial', 'Oficinas Temáticas & Bate-Papo', 'Noite de Louvor e Ministração'] },
+      { day: 'Dia 3', title: 'Desafios & Fogo', events: ['Oração ao Ar Livre & Café da Manhã', 'Finais das Competições Esportivas', 'Tempo Livre nas Piscinas', 'Dinâmicas de Integração', 'Culto da Fogueira (Clamor e Unção)'] },
+      { day: 'Dia 4', title: 'Encerramento & Aliança', events: ['Café da Manhã de Despedida', 'Grande Culto de Celebração', 'Entrega de Premiações & Troféus', 'Foto Oficial e Retorno'] }
+    ];
+
+    const FAQs = [
+      { question: 'Quem pode participar?', answer: 'Jovens e adolescentes a partir de 12 anos.' },
+      { question: 'O que levar na mala?', answer: 'Bíblia, roupas de gincana (que possam sujar), roupas de banho (compostura cristã), lençol/toalha, repelente e muita disposição!' },
+      { question: 'Como funciona o pagamento?', answer: 'Aceitamos PIX ou Cartão de Crédito (em até 10x) diretamente com a liderança.' }
+    ];
+
+    // Local DB State variables
+    let registrations = [];
+    let announcements = [];
+    let galleryImages = [];
+    let promoVideo = '';
+    let currentUser = null;
+    let activeFilter = 'Todas';
+    let currentLightboxIdx = 0;
+    let authTab = 'participant';
+
+    // Form inputs and validation state
+    let regFormStatus = 'filling'; // filling, submitting, success
+    let regSuccessData = null;
+
+    function formatEmbedUrl(url) {
+      if (!url) return '';
+      url = url.trim();
+
+      // Kapwing URL formatting
+      const kapwingMatch = url.match(/kapwing\.com\/(?:videos|w|e)\/([a-zA-Z0-9]+)/i);
+      if (kapwingMatch) {
+        return `https://www.kapwing.com/e/${kapwingMatch[1]}`;
+      }
+
+      // YouTube URL formatting
+      const youtubeMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i);
+      if (youtubeMatch) {
+        return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+      }
+
+      return url;
+    }
+
+    function initDatabase() {
+      try {
+        if (!localStorage.getItem(REGISTRATIONS_KEY)) localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(INITIAL_REGISTRATIONS));
+        if (!localStorage.getItem(ANNOUNCEMENTS_KEY)) localStorage.setItem(ANNOUNCEMENTS_KEY, JSON.stringify(INITIAL_ANNOUNCEMENTS));
+        const storedGal = localStorage.getItem(GALLERY_KEY);
+        if (!storedGal) {
+          localStorage.setItem(GALLERY_KEY, JSON.stringify(INITIAL_GALLERY));
+        } else {
+          try {
+            let parsed = JSON.parse(storedGal);
+            // Remove the requested mock images (g-1, g-2, g-3, g-4) if present
+            const filtered = parsed.filter(img => img && img.id && !['g-1', 'g-2', 'g-3', 'g-4'].includes(img.id));
+            
+            // Check for any missing images from INITIAL_GALLERY and add them
+            const storedIds = new Set(filtered.map(img => img.id));
+            const missing = INITIAL_GALLERY.filter(img => !storedIds.has(img.id));
+            
+            if (filtered.length !== parsed.length || missing.length > 0) {
+              localStorage.setItem(GALLERY_KEY, JSON.stringify([...filtered, ...missing]));
+            }
+          } catch (e) {
+            localStorage.setItem(GALLERY_KEY, JSON.stringify(INITIAL_GALLERY));
+          }
+        }
+        const currentVid = localStorage.getItem(VIDEO_KEY);
+        if (!currentVid || currentVid === 'https://www.youtube.com/embed/WJ69r9sHn8I') {
+          localStorage.setItem(VIDEO_KEY, 'https://www.kapwing.com/e/6a456e967d73370f680d63c9');
+        }
+
+        registrations = JSON.parse(localStorage.getItem(REGISTRATIONS_KEY)) || INITIAL_REGISTRATIONS;
+        announcements = JSON.parse(localStorage.getItem(ANNOUNCEMENTS_KEY)) || INITIAL_ANNOUNCEMENTS;
+        galleryImages = JSON.parse(localStorage.getItem(GALLERY_KEY)) || INITIAL_GALLERY;
+        promoVideo = formatEmbedUrl(localStorage.getItem(VIDEO_KEY) || 'https://www.kapwing.com/e/6a456e967d73370f680d63c9');
+        
+        const userStr = localStorage.getItem(CURRENT_USER_KEY);
+        if (userStr && userStr !== 'undefined' && userStr !== 'null') {
+          currentUser = JSON.parse(userStr);
+        } else {
+          currentUser = null;
+        }
+      } catch (e) {
+        console.error("Database initialization failed, resetting to defaults:", e);
+        registrations = INITIAL_REGISTRATIONS;
+        announcements = INITIAL_ANNOUNCEMENTS;
+        galleryImages = INITIAL_GALLERY;
+        promoVideo = 'https://www.kapwing.com/e/6a456e967d73370f680d63c9';
+        currentUser = null;
+      }
+
+      const promoVideoPlayer = document.getElementById('promo-video-player');
+      if (promoVideoPlayer) {
+        promoVideoPlayer.src = promoVideo;
+      }
+    }
+
+    // Routing System
+    function navigateTo(sectionId) {
+      const landing = document.getElementById('landing-container');
+      const participant = document.getElementById('participant-container');
+      const admin = document.getElementById('admin-container');
+
+      if (sectionId === 'participant') {
+        if (!currentUser || currentUser.role !== 'participant') {
+          showAuthModal('participant');
+          return;
+        }
+        landing.classList.add('hidden');
+        admin.classList.add('hidden');
+        participant.classList.remove('hidden');
+        renderParticipantPortal();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (sectionId === 'admin') {
+        if (!currentUser || currentUser.role !== 'admin') {
+          showAuthModal('admin');
+          return;
+        }
+        landing.classList.add('hidden');
+        participant.classList.add('hidden');
+        admin.classList.remove('hidden');
+        renderAdminPortal();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        landing.classList.remove('hidden');
+        participant.classList.add('hidden');
+        admin.classList.add('hidden');
+
+        const el = document.getElementById(sectionId);
+        if (el) {
+          setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 50);
+        }
+      }
+    }
+
+    // Dynamic Render Elements
+    function updateNavbar() {
+      const authActionsDiv = document.getElementById('navbar-auth-actions');
+      const mobileAuthActionsDiv = document.getElementById('mobile-auth-actions');
+
+      if (currentUser) {
+        const firstName = currentUser.fullName.split(' ')[0];
+        const portalText = currentUser.role === 'admin' ? 'Painel Admin' : 'Minha Área';
+        const portalTarget = currentUser.role === 'admin' ? 'admin' : 'participant';
+
+        const html = `
+          <div class="flex items-center space-x-3 bg-white/5 px-4 py-2 rounded-xl border border-white/10">
+            <span class="text-xs text-white">Olá, <strong>${firstName}</strong></span>
+            <button onclick="navigateTo('${portalTarget}')" class="text-xs text-orange-400 font-bold hover:underline">${portalText}</button>
+            <button onclick="handleLogout()" class="text-gray-400 hover:text-red-400 text-xs transition-colors"><i data-lucide="log-out" class="w-4 h-4 inline"></i></button>
+          </div>
+        `;
+        authActionsDiv.innerHTML = html;
+        mobileAuthActionsDiv.innerHTML = `
+          <div class="py-2 flex flex-col space-y-2">
+            <span class="text-xs text-gray-300">Logado como: <strong>${currentUser.fullName}</strong></span>
+            <button onclick="navigateTo('${portalTarget}'); toggleMobileMenu()" class="w-full text-center py-2 rounded-lg bg-orange-500 text-white text-xs font-bold">${portalText}</button>
+            <button onclick="handleLogout(); toggleMobileMenu()" class="w-full text-center py-2 rounded-lg bg-red-500/10 text-red-400 text-xs font-bold">Sair</button>
+          </div>
+        `;
+      } else {
+        authActionsDiv.innerHTML = `
+          <button onclick="showAuthModal('participant')" class="px-4 py-2 rounded-xl text-sm font-semibold border border-white/20 text-white hover:bg-white/10 transition-all flex items-center space-x-1"><i data-lucide="user" class="w-4 h-4"></i><span>Entrar</span></button>
+          <button onclick="navigateTo('registration')" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white hover:scale-105 transition-all">Inscrever-se</button>
+        `;
+        mobileAuthActionsDiv.innerHTML = `
+          <button onclick="showAuthModal('participant'); toggleMobileMenu()" class="w-full text-center py-2.5 rounded-xl text-sm font-semibold border border-white/20 text-white mb-2">Entrar</button>
+          <button onclick="navigateTo('registration'); toggleMobileMenu()" class="w-full text-center py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white">Quero me inscrever</button>
+        `;
+      }
+      lucide.createIcons();
+    }
+
+    function renderStats() {
+      if (!Array.isArray(registrations)) registrations = [];
+      const baseFilled = 52;
+      const customRegs = registrations.filter(r => r && r.id && !r.id.startsWith('reg-')).length;
+      const filledSpots = Math.min(baseFilled + customRegs, 80);
+      const percentage = (filledSpots / 80) * 100;
+
+      const progressTextEl = document.getElementById('progress-text');
+      const progressBarEl = document.getElementById('progress-bar');
+      if (progressTextEl) progressTextEl.innerText = `${filledSpots} de 80 vagas`;
+      if (progressBarEl) progressBarEl.style.width = `${percentage}%`;
+    }
+
+    function renderGallery() {
+      const filtersDiv = document.getElementById('gallery-filters');
+      const gridDiv = document.getElementById('gallery-grid');
+
+      const categories = ['Todas', 'Louvor', 'Gincanas'];
+      filtersDiv.innerHTML = categories.map(cat => `
+        <button onclick="filterGallery('${cat}')" class="px-4 py-1.5 rounded-full text-xs font-semibold transition-colors border ${
+          activeFilter === cat ? 'bg-orange-500 border-orange-500 text-white' : 'border-white/10 text-gray-400 hover:text-white'
+        }">${cat}</button>
+      `).join('');
+
+      const filtered = activeFilter === 'Todas' ? galleryImages : galleryImages.filter(img => img.category === activeFilter);
+      gridDiv.innerHTML = filtered.map((img, index) => {
+        const fullIndex = galleryImages.findIndex(i => i.id === img.id);
+        return `
+          <div onclick="openLightbox(${fullIndex})" class="relative group aspect-square rounded-2xl overflow-hidden border border-white/10 bg-[#050b18] cursor-pointer">
+            <img src="${img.url}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" referrerPolicy="no-referrer">
+            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+              <span class="text-[9px] bg-orange-500 text-white px-2 py-0.5 rounded-full uppercase w-fit font-mono font-bold">${img.category}</span>
+              <p class="text-xs font-bold text-white mt-1 truncate">${img.title}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterGallery(cat) {
+      activeFilter = cat;
+      renderGallery();
+    }
+
+    function openLightbox(idx) {
+      currentLightboxIdx = idx;
+      const img = galleryImages[idx];
+      document.getElementById('lightbox-img').src = img.url;
+      document.getElementById('lightbox-title').innerText = img.title;
+      document.getElementById('lightbox-category').innerText = img.category;
+      document.getElementById('lightbox').classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.add('hidden');
+    }
+
+    function nextImage() {
+      currentLightboxIdx = (currentLightboxIdx + 1) % galleryImages.length;
+      openLightbox(currentLightboxIdx);
+    }
+
+    function prevImage() {
+      currentLightboxIdx = (currentLightboxIdx - 1 + galleryImages.length) % galleryImages.length;
+      openLightbox(currentLightboxIdx);
+    }
+
+    function switchScheduleDay(dayIdx) {
+      for (let i = 0; i < 4; i++) {
+        const tab = document.getElementById(`sch-tab-${i}`);
+        if (i === dayIdx) {
+          tab.className = "flex-1 py-2.5 text-center text-xs font-bold rounded-lg transition-all bg-orange-500 text-white";
+        } else {
+          tab.className = "flex-1 py-2.5 text-center text-xs font-bold rounded-lg transition-all text-gray-400 hover:text-white";
+        }
+      }
+      const data = TIMELINE[dayIdx];
+      const html = `
+        <h3 class="text-xl font-bold text-white font-display flex items-center gap-2 mb-4">
+          <i data-lucide="calendar" class="w-5 h-5 text-orange-500"></i>
+          <span>${data.day} • ${data.title}</span>
+        </h3>
+        <ul class="space-y-4">
+          ${data.events.map(ev => `
+            <li class="flex items-start gap-3 text-sm text-gray-300">
+              <span class="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 mt-2"></span>
+              <span>${ev}</span>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+      document.getElementById('schedule-content').innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function renderFaqs() {
+      const list = document.getElementById('faq-list');
+      list.innerHTML = FAQs.map((faq, idx) => `
+        <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
+          <button onclick="toggleFaq(${idx})" class="w-full flex items-center justify-between p-6 text-left cursor-pointer hover:bg-white/5 transition-colors">
+            <span class="text-sm font-semibold text-white">${faq.question}</span>
+            <i data-lucide="chevron-down" id="faq-icon-${idx}" class="w-4 h-4 text-orange-400 transition-transform"></i>
+          </button>
+          <div id="faq-ans-${idx}" class="hidden p-6 pt-0 border-t border-white/5 text-xs text-gray-400 leading-relaxed">${faq.answer}</div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function toggleFaq(idx) {
+      const ans = document.getElementById(`faq-ans-${idx}`);
+      const icon = document.getElementById(`faq-icon-${idx}`);
+      ans.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+    }
+
+    // REGISTRATION FLOW
+    function renderRegistrationArea() {
+      const div = document.getElementById('registration-content-area');
+
+      if (regFormStatus === 'success') {
+        div.innerHTML = `
+          <div class="glass-card rounded-3xl p-8 md:p-10 border border-orange-500/30 shadow-2xl max-w-lg mx-auto text-center space-y-6">
+            <span class="text-6xl mb-4 inline-block animate-bounce">🎉</span>
+            <h2 class="text-3xl font-bold font-display text-white">Parabéns!</h2>
+            <p class="text-orange-400 font-bold font-mono text-xs uppercase tracking-wider">Inscrição pré-registrada</p>
+            <div class="text-gray-300 text-sm space-y-3 py-4 border-y border-white/10 text-left">
+              <p>Olá, <strong class="text-white">${regSuccessData.fullName}</strong>!</p>
+              <p>Sua vaga está garantida por 72h. Guarde suas credenciais para acessar o portal:</p>
+              <div class="bg-[#0a1226] p-4 rounded-xl space-y-2 text-xs font-mono border border-white/5">
+                <div class="flex justify-between"><span>E-mail:</span><strong class="text-white">${regSuccessData.email}</strong></div>
+                <div class="flex justify-between"><span>Código:</span><strong class="text-orange-400">${regSuccessData.registrationCode}</strong></div>
+                <div class="flex justify-between"><span>Valor Pago:</span><strong class="text-emerald-400">R$ 0,00 (Pendente)</strong></div>
+              </div>
+              <p class="text-[11px] text-gray-400 italic">Uma mensagem de confirmação foi encaminhada para seu e-mail.</p>
+            </div>
+            <button onclick="loginAndGoToParticipant('${regSuccessData.email}', '${regSuccessData.registrationCode}')" class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white shadow-lg transition-all flex items-center justify-center space-x-2">
+              <span>Acessar Meu Portal</span>
+              <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+          </div>
+        `;
+      } else {
+        div.innerHTML = `
+          <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+            <span class="text-xs font-mono font-bold tracking-widest text-orange-400 uppercase bg-orange-500/10 px-3.5 py-1.5 rounded-full">Inscrição</span>
+            <h2 class="text-4xl font-extrabold font-display text-white">Garanta sua Vaga On-line</h2>
+            <p class="text-gray-400 text-sm">Preencha todos os dados com cuidado para reservar sua acomodação no sítio.</p>
+          </div>
+
+          <div class="glass-card rounded-3xl p-6 md:p-10 border border-white/5 shadow-2xl">
+            <form id="camp-reg-form" onsubmit="submitRegistration(event)" class="space-y-6">
+              
+              <div class="border-b border-white/5 pb-2"><h3 class="text-base font-bold text-white flex items-center gap-2"><i data-lucide="user" class="text-orange-500 w-5 h-5"></i> <span>Dados Pessoais</span></h3></div>
+              <div class="grid md:grid-cols-2 gap-4">
+                <input type="text" id="reg-fullname" required placeholder="Nome Completo" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                <input type="date" id="reg-birthdate" required class="w-full px-4 py-3 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                <input type="text" id="reg-cpf" required placeholder="CPF (000.000.000-00)" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                <input type="text" id="reg-rg" required placeholder="RG" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                <input type="text" id="reg-phone" required placeholder="Telefone" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                <input type="email" id="reg-email" required placeholder="E-mail" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                <input type="text" id="reg-address" required placeholder="Endereço Residencial Completo" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500 md:col-span-2">
+              </div>
+
+              <div class="border-b border-white/5 pb-2"><h3 class="text-base font-bold text-white flex items-center gap-2"><i data-lucide="compass" class="text-orange-500 w-5 h-5"></i> <span>Igreja & Liderança</span></h3></div>
+              <div class="grid md:grid-cols-2 gap-4">
+                <input type="text" id="reg-church" required placeholder="Qual igreja frequenta?" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                <input type="text" id="reg-leader" required placeholder="Nome do seu Líder/Pastor" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+              </div>
+
+              <div class="border-b border-white/5 pb-2"><h3 class="text-base font-bold text-white flex items-center gap-2"><i data-lucide="info" class="text-orange-500 w-5 h-5"></i> <span>Saúde & Kit</span></h3></div>
+              <div class="space-y-3 text-xs">
+                <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
+                  <input type="checkbox" id="reg-has-allergies" class="w-4 h-4 rounded text-orange-500">
+                  <label for="reg-has-allergies">Possui algum tipo de alergia alimentar ou a medicamentos?</label>
+                </div>
+                <input type="text" id="reg-allergies-details" placeholder="Detalhes da alergia" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500 hidden">
+                
+                <input type="text" id="reg-emergency" required placeholder="Contato de Emergência (Nome, parentesco e telefone)" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                
+                <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                  <div class="space-y-1">
+                    <label class="text-[10px] text-gray-400 font-mono font-bold">Camisa Oficial</label>
+                    <select id="reg-tshirtsize" class="w-full px-4 py-3 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none">
+                      <option value="PP">Tamanho PP</option>
+                      <option value="P">Tamanho P</option>
+                      <option value="M" selected>Tamanho M</option>
+                      <option value="G">Tamanho G</option>
+                      <option value="GG">Tamanho GG</option>
+                    </select>
+                  </div>
+                  <div class="space-y-1">
+                    <label class="text-[10px] text-gray-400 font-mono font-bold">Forma de Pagamento</label>
+                    <select id="reg-payment" class="w-full px-4 py-3 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none">
+                      <option value="PIX">PIX (À Vista)</option>
+                      <option value="Cartão">Cartão de Crédito</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-start gap-2 text-[10px] text-gray-400 leading-normal max-w-sm">
+                  <i data-lucide="shield-check" class="text-orange-500 w-5 h-5 shrink-0"></i>
+                  <span>Sua vaga ficará reservada por 72 horas para confirmação financeira com a liderança.</span>
+                </div>
+                <button type="submit" id="reg-btn-submit" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white shadow-md transition-all">Finalizar Inscrição</button>
+              </div>
+
+            </form>
+          </div>
+        `;
+        document.getElementById('reg-has-allergies').addEventListener('change', function(e) {
+          const det = document.getElementById('reg-allergies-details');
+          if (e.target.checked) det.classList.remove('hidden');
+          else det.classList.add('hidden');
+        });
+      }
+      lucide.createIcons();
+    }
+
+    function submitRegistration(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-fullname').value;
+      const email = document.getElementById('reg-email').value;
+      const cpf = document.getElementById('reg-cpf').value;
+      const birth = document.getElementById('reg-birthdate').value;
+      const phone = document.getElementById('reg-phone').value;
+      const rg = document.getElementById('reg-rg').value;
+      const address = document.getElementById('reg-address').value;
+      const church = document.getElementById('reg-church').value;
+      const leader = document.getElementById('reg-leader').value;
+      const tshirt = document.getElementById('reg-tshirtsize').value;
+      const pay = document.getElementById('reg-payment').value;
+      const emergency = document.getElementById('reg-emergency').value;
+
+      const btn = document.getElementById('reg-btn-submit');
+      btn.innerText = "Processando...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let code = 'SC27-';
+        for (let i = 0; i < 4; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+
+        const newReg = {
+          id: `custom-reg-${Date.now()}`,
+          fullName: name,
+          birthDate: birth,
+          cpf: cpf,
+          rg: rg,
+          phone: phone,
+          whatsapp: phone,
+          email: email,
+          address: address,
+          church: church,
+          leader: leader,
+          hasAllergies: document.getElementById('reg-has-allergies').checked,
+          allergiesDetails: document.getElementById('reg-allergies-details').value,
+          emergencyContact: emergency,
+          tshirtSize: tshirt,
+          paymentMethod: pay,
+          status: 'Pendente',
+          createdAt: new Date().toISOString(),
+          registrationCode: code,
+          amountPaid: 0
+        };
+
+        registrations.push(newReg);
+        localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(registrations));
+
+        regSuccessData = newReg;
+        regFormStatus = 'success';
+        
+        renderRegistrationArea();
+        renderStats();
+      }, 1000);
+    }
+
+    function loginAndGoToParticipant(email, code) {
+      const logged = loginUser(email, code);
+      if (logged) {
+        updateNavbar();
+        navigateTo('participant');
+      }
+    }
+
+    function loginUser(email, code) {
+      if (email.toLowerCase().trim() === 'admin@convictos.com' && code === 'admin123') {
+        const user = { role: 'admin', email: 'admin@convictos.com', fullName: 'Administrador' };
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+        currentUser = user;
+        return user;
+      }
+
+      const found = registrations.find(r => r.email.toLowerCase().trim() === email.toLowerCase().trim() && 
+        (r.registrationCode.toLowerCase().trim() === code.toLowerCase().trim() || r.cpf.replace(/\D/g, '') === code.replace(/\D/g, '')));
+
+      if (found) {
+        const user = { role: 'participant', email: found.email, registrationCode: found.registrationCode, fullName: found.fullName, id: found.id };
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+        currentUser = user;
+        return user;
+      }
+      return null;
+    }
+
+    function handleLogout() {
+      localStorage.removeItem(CURRENT_USER_KEY);
+      currentUser = null;
+      updateNavbar();
+      navigateTo('hero');
+    }
+
+    // AUTH LOGIN MODAL
+    function showAuthModal(role) {
+      authTab = role;
+      document.getElementById('auth-modal').className = "fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4";
+      switchAuthTab(role);
+    }
+
+    function closeAuthModal() {
+      document.getElementById('auth-modal').className = "fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4";
+    }
+
+    function switchAuthTab(tab) {
+      authTab = tab;
+      const pBtn = document.getElementById('tab-btn-participant');
+      const aBtn = document.getElementById('tab-btn-admin');
+      const form = document.getElementById('auth-form');
+      document.getElementById('auth-error').classList.add('hidden');
+
+      if (tab === 'participant') {
+        pBtn.className = "flex-1 py-2 text-center rounded-lg text-xs font-bold transition-all bg-orange-500 text-white shadow-md";
+        aBtn.className = "flex-1 py-2 text-center rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white";
+        form.innerHTML = `
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-gray-300">E-mail Cadastrado</label>
+            <input type="email" id="auth-email" required placeholder="voce@exemplo.com" class="w-full px-4 py-2.5 rounded-xl bg-[#091124] border border-white/10 text-xs text-white focus:outline-none">
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-gray-300">Código de Inscrição ou CPF</label>
+            <input type="text" id="auth-code" required placeholder="SC27-XXXX ou seu CPF" class="w-full px-4 py-2.5 rounded-xl bg-[#091124] border border-white/10 text-xs text-white focus:outline-none">
+          </div>
+          <button type="submit" class="w-full py-3 rounded-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white text-xs hover:scale-[1.01] transition-all">Acessar Painel</button>
+        `;
+      } else {
+        aBtn.className = "flex-1 py-2 text-center rounded-lg text-xs font-bold transition-all bg-orange-500 text-white shadow-md";
+        pBtn.className = "flex-1 py-2 text-center rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white";
+        form.innerHTML = `
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-gray-300">E-mail Líder</label>
+            <input type="email" id="auth-email" required placeholder="admin@convictos.com" class="w-full px-4 py-2.5 rounded-xl bg-[#091124] border border-white/10 text-xs text-white focus:outline-none">
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-gray-300">Senha</label>
+            <input type="password" id="auth-code" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl bg-[#091124] border border-white/10 text-xs text-white focus:outline-none">
+          </div>
+          <div class="bg-orange-500/5 p-3 rounded-xl border border-orange-500/10 text-[9px] text-orange-400">
+            💡 <strong>Acesso Admin:</strong> admin@convictos.com | admin123
+          </div>
+          <button type="submit" class="w-full py-3 rounded-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white text-xs hover:scale-[1.01] transition-all">Acessar Admin</button>
+        `;
+      }
+    }
+
+    function handleAuthLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('auth-email').value;
+      const code = document.getElementById('auth-code').value;
+      const errorDiv = document.getElementById('auth-error');
+
+      const user = loginUser(email, code);
+      if (user) {
+        closeAuthModal();
+        updateNavbar();
+        navigateTo(user.role === 'admin' ? 'admin' : 'participant');
+      } else {
+        errorDiv.classList.remove('hidden');
+        document.getElementById('auth-error-msg').innerText = "Credenciais inválidas. Verifique os dados.";
+      }
+    }
+
+    // PARTICIPANT PORTAL RENDER
+    function renderParticipantPortal() {
+      const container = document.getElementById('participant-container');
+      const reg = registrations.find(r => r.id === currentUser.id || r.registrationCode === currentUser.registrationCode);
+
+      if (!reg) {
+        container.innerHTML = `<div class="text-center p-12"><p class="text-red-400">Inscrição não localizada.</p></div>`;
+        return;
+      }
+
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`SUMMER-CAMP-2027|CODE:${reg.registrationCode}|NAME:${reg.fullName}|STATUS:${reg.status}`)}&color=ea580c&bgcolor=ffffff`;
+
+      container.innerHTML = `
+        <div class="max-w-4xl mx-auto px-4 space-y-8">
+          <div class="flex flex-col md:flex-row md:items-center justify-between bg-white/5 border border-white/5 p-6 rounded-3xl gap-4">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-orange-600 to-yellow-500 flex items-center justify-center shadow-lg"><i data-lucide="user" class="w-6 h-6 text-white"></i></div>
+              <div>
+                <span class="text-[10px] font-mono text-orange-400 font-bold uppercase">Portal do Participante</span>
+                <h2 class="text-xl font-extrabold font-display text-white">${reg.fullName}</h2>
+              </div>
+            </div>
+            <button onclick="handleLogout()" class="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold rounded-xl transition-all">Sair do Portal</button>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <!-- Voucher / QR -->
+            <div class="glass-card rounded-3xl p-6 border border-white/10 text-center flex flex-col items-center justify-between space-y-4">
+              <h3 class="text-sm font-bold text-white font-display border-b border-white/10 pb-2 w-full"><i data-lucide="qr-code" class="w-4 h-4 text-orange-400 inline mr-1"></i> Credencial</h3>
+              <div class="bg-white p-3 rounded-2xl w-40 h-40 flex items-center justify-center shadow-lg"><img src="${qrUrl}" class="w-full h-full object-contain" referrerPolicy="no-referrer"></div>
+              <p class="text-xs font-mono font-bold text-orange-400 uppercase tracking-widest">CÓDIGO: ${reg.registrationCode}</p>
+            </div>
+
+            <!-- Status & Payments -->
+            <div class="glass-card rounded-3xl p-6 border border-white/10 space-y-4">
+              <h3 class="text-sm font-bold text-white font-display border-b border-white/10 pb-2"><i data-lucide="credit-card" class="w-4 h-4 text-orange-400 inline mr-1"></i> Status Financeiro</h3>
+              <div class="space-y-3 text-xs">
+                <div class="flex justify-between"><span>Situação:</span><strong class="${reg.status === 'Confirmada' ? 'text-emerald-400' : 'text-yellow-400'} uppercase font-bold">${reg.status}</strong></div>
+                <div class="flex justify-between"><span>Pagamento:</span><strong>${reg.paymentMethod}</strong></div>
+                <div class="flex justify-between"><span>Valor Pago:</span><strong class="text-emerald-400">R$ ${reg.amountPaid},00</strong></div>
+                <div class="flex justify-between border-t border-white/5 pt-2"><span>Custo Total:</span><strong>R$ 500,00</strong></div>
+              </div>
+
+              ${reg.status === 'Pendente' ? `
+                <div class="bg-orange-500/5 p-3 rounded-xl border border-orange-500/15 text-[11px] space-y-1.5">
+                  <div class="font-bold text-orange-400 flex items-center gap-1"><i data-lucide="info" class="w-4 h-4"></i>Chave Pix CNPJ</div>
+                  <strong class="text-white select-all font-mono block text-center bg-black/40 py-1 rounded">12.345.678/0001-99</strong>
+                  <p class="text-[10px] text-gray-400">Realize o PIX e mande para seus líderes.</p>
+                </div>
+              ` : `
+                <div class="bg-emerald-500/5 p-3 rounded-xl border border-emerald-500/15 text-[11px] text-emerald-400 flex items-center gap-1"><i data-lucide="check" class="w-4 h-4 shrink-0"></i> <span>Tudo certo! Camisa e acomodação garantidas.</span></div>
+              `}
+            </div>
+
+            <!-- Profile & Rules -->
+            <div class="glass-card rounded-3xl p-6 border border-white/10 flex flex-col justify-between space-y-4">
+              <h3 class="text-sm font-bold text-white font-display border-b border-white/10 pb-2"><i data-lucide="file-text" class="w-4 h-4 text-orange-400 inline mr-1"></i> Detalhes & Camisa</h3>
+              <div class="space-y-3 text-xs">
+                <div><span class="text-gray-400 font-mono">Tamanho da Camisa:</span> <strong class="text-white">${reg.tshirtSize}</strong></div>
+                <div><span class="text-gray-400 font-mono">Igreja:</span> <strong class="text-white">${reg.church}</strong></div>
+                <div><span class="text-gray-400 font-mono">Líder Declarado:</span> <strong class="text-white">${reg.leader}</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    function printAuthorization(id) {
+      const reg = registrations.find(r => r.id === id);
+      if (!reg) return;
+
+      const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Autorização Summer Camp 2027</title>
+          <style>
+            body { font-family: sans-serif; padding: 40px; color: #333; line-height: 1.6; }
+            .header { text-align: center; border-bottom: 2px solid #ea580c; padding-bottom: 15px; margin-bottom: 25px; }
+            h1 { font-size: 18px; text-align: center; text-transform: uppercase; margin-bottom: 30px; }
+            .field-row { margin-bottom: 15px; font-size: 13px; text-align: justify; }
+            .line { display: inline-block; border-bottom: 1px solid #000; width: 220px; }
+            .signatures { margin-top: 60px; display: flex; justify-content: space-between; }
+            .sig-block { text-align: center; width: 45%; border-top: 1px solid #000; padding-top: 5px; font-size: 11px; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h2 style="color:#ea580c;margin:0;">SUMMER CAMP 2027</h2>
+            <div style="font-size:10px;text-transform:uppercase;color:#666;font-family:monospace;">Juventude Convictos • IEQ Inhoaíba</div>
+          </div>
+          <h1>Autorização de Viagem e Hospedagem</h1>
+          <div class="field-row">
+            Eu, <span class="line" style="width:350px;"></span>, portador do RG nº <span class="line"></span> e CPF nº <span class="line"></span>, na qualidade de responsável legal do menor <strong>${reg.fullName}</strong>, nascido em <strong>${new Date(reg.birthDate).toLocaleDateString('pt-BR')}</strong>, RG <strong>${reg.rg}</strong>, CPF <strong>${reg.cpf}</strong>, 
+            <strong>AUTORIZO</strong> o menor a viajar sob a coordenação dos líderes da Juventude Convictos para o retiro <strong>Summer Camp 2027</strong> de 05 a 09 de fevereiro de 2027 em Sítio das Tribos (Rio de Janeiro).
+          </div>
+          <div class="field-row" style="margin-top:30px;">Rio de Janeiro, _____ de _________________ de 2026.</div>
+          <div class="signatures">
+            <div class="sig-block" style="margin-top:40px;">Assinatura do Responsável Legal</div>
+            <div class="sig-block" style="margin-top:40px;">CPF do Responsável</div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      // Try window.open first
+      const pWin = window.open('', '_blank');
+      if (pWin) {
+        pWin.document.write(html);
+        pWin.document.close();
+        pWin.focus();
+        pWin.print();
+      } else {
+        // Fallback: print via a hidden iframe (works inside sandboxed environments!)
+        let iframe = document.getElementById('print-iframe');
+        if (!iframe) {
+          iframe = document.createElement('iframe');
+          iframe.id = 'print-iframe';
+          iframe.style.position = 'fixed';
+          iframe.style.right = '0';
+          iframe.style.bottom = '0';
+          iframe.style.width = '0';
+          iframe.style.height = '0';
+          iframe.style.border = '0';
+          document.body.appendChild(iframe);
+        }
+        const doc = iframe.contentWindow || iframe.contentDocument;
+        const iframeDoc = doc.document || doc;
+        iframeDoc.open();
+        iframeDoc.write(html);
+        iframeDoc.close();
+        setTimeout(() => {
+          iframe.contentWindow.focus();
+          iframe.contentWindow.print();
+        }, 500);
+      }
+    }
+
+    // ADMIN PANEL PORTAL RENDER
+    let adminSearchQuery = '';
+    let adminStatusFilter = 'Todos';
+
+    function renderAdminPortal() {
+      const container = document.getElementById('admin-container');
+      const baseSpots = 52;
+      const customRegs = registrations.filter(r => !r.id.startsWith('reg-'));
+      const filledSpots = baseSpots + customRegs.length;
+
+      let totalRevenue = 26000; 
+      let pendingAmount = 875;
+
+      registrations.forEach(r => {
+        if (r.id.startsWith('custom-')) {
+          totalRevenue += r.amountPaid;
+          pendingAmount += (500 - r.amountPaid);
+        }
+      });
+
+      const filteredRegs = registrations.filter(r => {
+        const matchesSearch = r.fullName.toLowerCase().includes(adminSearchQuery.toLowerCase()) || r.cpf.includes(adminSearchQuery);
+        const matchesStatus = adminStatusFilter === 'Todos' || r.status === adminStatusFilter;
+        return matchesSearch && matchesStatus;
+      });
+
+      container.innerHTML = `
+        <div class="max-w-6xl mx-auto px-4 space-y-8">
+          
+          <!-- Header and Export -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/5 border border-white/5 p-6 rounded-3xl">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-xl bg-orange-600 flex items-center justify-center shadow-lg shadow-orange-500/20"><i data-lucide="shield" class="w-5 h-5 text-white animate-pulse"></i></div>
+              <div>
+                <span class="text-[10px] text-orange-400 font-mono font-bold uppercase">Painel Administrativo</span>
+                <h2 class="text-xl font-extrabold font-display text-white">Liderança Convictos</h2>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <button onclick="exportRegistrationsCSV()" class="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5"><i data-lucide="file-down" class="w-4 h-4 text-orange-400"></i> Exportar CSV</button>
+              <button onclick="handleLogout()" class="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold rounded-xl transition-all">Sair do Admin</button>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="glass-card rounded-2xl p-5 border border-white/5 space-y-1">
+              <span class="text-[10px] font-mono text-gray-400 uppercase">Inscritos Totais</span>
+              <p class="text-2xl font-black font-display text-white">${filledSpots} / 80</p>
+            </div>
+            <div class="glass-card rounded-2xl p-5 border border-white/5 space-y-1">
+              <span class="text-[10px] font-mono text-gray-400 uppercase">Receita Confirmada</span>
+              <p class="text-2xl font-black font-display text-emerald-400">R$ ${totalRevenue},00</p>
+            </div>
+            <div class="glass-card rounded-2xl p-5 border border-white/5 space-y-1">
+              <span class="text-[10px] font-mono text-gray-400 uppercase">Pendente / A Receber</span>
+              <p class="text-2xl font-black font-display text-yellow-400">R$ ${pendingAmount},00</p>
+            </div>
+            <div class="glass-card rounded-2xl p-5 border border-white/5 space-y-1">
+              <span class="text-[10px] font-mono text-gray-400 uppercase">Fotos Galeria</span>
+              <p class="text-2xl font-black font-display text-orange-400">${galleryImages.length} fotos</p>
+            </div>
+          </div>
+
+          <!-- Table & Filter Controls -->
+          <div class="glass-card rounded-3xl p-6 border border-white/5 shadow-2xl space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <h3 class="text-base font-bold text-white font-display flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-orange-500"></i> Gerenciamento de Participantes</h3>
+              <div class="flex flex-col sm:flex-row gap-2 max-w-lg w-full">
+                <input type="text" id="admin-search" oninput="adminSearch(this.value)" value="${adminSearchQuery}" placeholder="Buscar por nome ou CPF..." class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-orange-500">
+                <select onchange="adminFilterStatus(this.value)" class="px-4 py-2 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none">
+                  <option value="Todos" ${adminStatusFilter === 'Todos' ? 'selected' : ''}>Todos os Status</option>
+                  <option value="Pendente" ${adminStatusFilter === 'Pendente' ? 'selected' : ''}>Pendentes</option>
+                  <option value="Confirmada" ${adminStatusFilter === 'Confirmada' ? 'selected' : ''}>Confirmadas</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Table Container -->
+            <div class="overflow-x-auto border border-white/5 rounded-2xl">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="bg-white/5 text-gray-400 uppercase font-mono border-b border-white/5">
+                    <th class="p-4">Nome Completo</th>
+                    <th class="p-4">Código / CPF</th>
+                    <th class="p-4">Forma</th>
+                    <th class="p-4">Valor Pago</th>
+                    <th class="p-4">Situação</th>
+                    <th class="p-4 text-right">Ações</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                  ${filteredRegs.length === 0 ? `
+                    <tr><td colspan="6" class="p-8 text-center text-gray-500 italic">Nenhum participante encontrado.</td></tr>
+                  ` : filteredRegs.map(r => `
+                    <tr class="hover:bg-white/[0.01] transition-colors">
+                      <td class="p-4 font-semibold text-white">${r.fullName}</td>
+                      <td class="p-4 font-mono text-gray-400">${r.registrationCode}<br><span class="text-[10px] text-gray-500">${r.cpf}</span></td>
+                      <td class="p-4 text-gray-300">${r.paymentMethod}</td>
+                      <td class="p-4 font-semibold text-emerald-400">R$ ${r.amountPaid},00</td>
+                      <td class="p-4">
+                        <span class="px-2 py-1 rounded text-[10px] font-bold ${r.status === 'Confirmada' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20'}">${r.status}</span>
+                      </td>
+                      <td class="p-4 text-right space-x-1.5">
+                        ${r.status === 'Pendente' ? `
+                          <button onclick="approveRegistration('${r.id}')" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[10px] font-bold">Aprovar</button>
+                        ` : `
+                          <button onclick="pendingRegistration('${r.id}')" class="px-2.5 py-1.5 bg-yellow-600 hover:bg-yellow-700 text-white rounded text-[10px] font-bold">Desfazer</button>
+                        `}
+                        <button onclick="deleteRegistration('${r.id}')" class="p-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded"><i data-lucide="trash-2" class="w-3.5 h-3.5 inline"></i></button>
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Media settings -->
+          <div class="grid md:grid-cols-2 gap-8">
+            <form onsubmit="adminUpdatePromoVideo(event)" class="glass-card rounded-3xl p-6 border border-white/5 shadow-xl space-y-4">
+              <h3 class="text-base font-bold text-white font-display flex items-center gap-2"><i data-lucide="film" class="w-5 h-5 text-orange-500"></i> Vídeo Promocional (YouTube Embed)</h3>
+              <input type="text" id="admin-video-url" value="${promoVideo}" required placeholder="Ex: https://www.youtube.com/embed/..." class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none">
+              <button type="submit" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-orange-600 hover:bg-orange-700 text-white transition-all shadow-md">Salvar Vídeo</button>
+            </form>
+
+            <form onsubmit="adminAddGalleryPhoto(event)" class="glass-card rounded-3xl p-6 border border-white/5 shadow-xl space-y-4">
+              <h3 class="text-base font-bold text-white font-display flex items-center gap-2"><i data-lucide="image" class="w-5 h-5 text-orange-500"></i> Adicionar Foto à Galeria</h3>
+              <div class="grid grid-cols-2 gap-3">
+                <input type="text" id="admin-photo-title" required placeholder="Título" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none">
+                <select id="admin-photo-category" class="px-4 py-2.5 rounded-xl bg-[#050b18] border border-white/10 text-xs text-white focus:outline-none">
+                  <option value="Gincanas">Gincanas</option>
+                  <option value="Louvor">Louvor</option>
+                  <option value="Fogueira">Fogueira</option>
+                  <option value="Lazer">Lazer</option>
+                </select>
+              </div>
+              <input type="text" id="admin-photo-url" required placeholder="URL da Imagem" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none">
+              <button type="submit" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-orange-600 hover:bg-orange-700 text-white transition-all shadow-md">Adicionar Foto</button>
+            </form>
+          </div>
+
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    function adminSearch(val) {
+      adminSearchQuery = val;
+      renderAdminPortal();
+    }
+
+    function adminFilterStatus(val) {
+      adminStatusFilter = val;
+      renderAdminPortal();
+    }
+
+    function approveRegistration(id) {
+      const idx = registrations.findIndex(r => r.id === id);
+      if (idx !== -1) {
+        registrations[idx].status = 'Confirmada';
+        registrations[idx].amountPaid = 280;
+        localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(registrations));
+        renderAdminPortal();
+        renderStats();
+      }
+    }
+
+    function pendingRegistration(id) {
+      const idx = registrations.findIndex(r => r.id === id);
+      if (idx !== -1) {
+        registrations[idx].status = 'Pendente';
+        registrations[idx].amountPaid = 0;
+        localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(registrations));
+        renderAdminPortal();
+        renderStats();
+      }
+    }
+
+    function deleteRegistration(id) {
+      if (confirm('Deseja realmente remover esta inscrição?')) {
+        registrations = registrations.filter(r => r.id !== id);
+        localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(registrations));
+        renderAdminPortal();
+        renderStats();
+      }
+    }
+
+    function adminUpdatePromoVideo(e) {
+      e.preventDefault();
+      const url = document.getElementById('admin-video-url').value;
+      const formattedUrl = formatEmbedUrl(url);
+      localStorage.setItem(VIDEO_KEY, formattedUrl);
+      promoVideo = formattedUrl;
+      document.getElementById('promo-video-player').src = formattedUrl;
+      document.getElementById('admin-video-url').value = formattedUrl;
+      alert('Vídeo promocional atualizado com sucesso!');
+    }
+
+    function adminAddGalleryPhoto(e) {
+      e.preventDefault();
+      const title = document.getElementById('admin-photo-title').value;
+      const cat = document.getElementById('admin-photo-category').value;
+      const url = document.getElementById('admin-photo-url').value;
+
+      const newPhoto = { id: `g-custom-${Date.now()}`, url, title, category: cat };
+      galleryImages.unshift(newPhoto);
+      localStorage.setItem(GALLERY_KEY, JSON.stringify(galleryImages));
+
+      document.getElementById('admin-photo-title').value = '';
+      document.getElementById('admin-photo-url').value = '';
+
+      renderGallery();
+      renderAdminPortal();
+      alert('Foto adicionada com sucesso!');
+    }
+
+    function exportRegistrationsCSV() {
+      const headers = ['ID', 'Nome Completo', 'CPF', 'RG', 'E-mail', 'Telefone', 'Igreja', 'Líder', 'Tamanho Camisa', 'Método Pagamento', 'Status', 'Valor Pago'];
+      const rows = registrations.map(r => [
+        r.id, r.fullName, r.cpf, r.rg, r.email, r.phone, r.church, r.leader, r.tshirtSize, r.paymentMethod, r.status, r.amountPaid
+      ]);
+
+      const csvContent = "data:text/csv;charset=utf-8," 
+        + [headers.join(','), ...rows.map(e => e.map(val => `"${String(val).replace(/"/g, '""')}"`).join(','))].join('\n');
+      
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `summer_camp_2027_inscritos_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // COUNTDOWN TIMER TICK
+    function startCountdown() {
+      const target = new Date('2027-02-05T14:00:00').getTime();
+      function update() {
+        const diff = target - new Date().getTime();
+        let d = 0, h = 0, m = 0, s = 0;
+        if (diff > 0) {
+          d = Math.floor(diff / (1000 * 60 * 60 * 24));
+          h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          s = Math.floor((diff % (1000 * 60)) / 1000);
+        }
+        document.getElementById('countdown-days').innerText = String(d).padStart(2, '0');
+        document.getElementById('countdown-hours').innerText = String(h).padStart(2, '0');
+        document.getElementById('countdown-minutes').innerText = String(m).padStart(2, '0');
+        document.getElementById('countdown-seconds').innerText = String(s).padStart(2, '0');
+      }
+      setInterval(update, 1000);
+      update();
+    }
+
+    // ON PAGE LOAD INITIALIZATIONS
+    window.onload = function() {
+      initDatabase();
+      updateNavbar();
+      renderStats();
+      renderGallery();
+      switchScheduleDay(0);
+      renderFaqs();
+      renderRegistrationArea();
+      startCountdown();
+    };
+  </script>
+</body>
+</html>
