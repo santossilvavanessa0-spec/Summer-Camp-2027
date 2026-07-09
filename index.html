@@ -530,10 +530,20 @@
 
       // If it's an iframe (like Kapwing or YouTube), we let it fill 100% of the container to keep controls visible & fully clickable
       if (player.tagName.toLowerCase() === 'iframe') {
-        player.style.width = '100%';
-        player.style.height = '100%';
-        player.style.position = 'static';
-        player.style.transform = 'none';
+        const src = player.src || promoVideo || '';
+        if (src.includes('drive.google.com')) {
+          player.style.position = 'absolute';
+          player.style.top = '-60px'; // Shift up to hide Google Drive header, title and Pop-out button
+          player.style.left = '0';
+          player.style.width = '100%';
+          player.style.height = 'calc(100% + 60px)';
+          player.style.transform = 'none';
+        } else {
+          player.style.width = '100%';
+          player.style.height = '100%';
+          player.style.position = 'static';
+          player.style.transform = 'none';
+        }
         return;
       }
     }
