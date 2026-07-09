@@ -301,7 +301,10 @@
                 <span class="text-5xl md:text-6xl font-black text-white font-mono tracking-tight">500</span>
                 <span class="text-lg font-bold text-gray-400">,00</span>
               </div>
-              <p class="text-xs text-orange-400 font-bold mb-6">Parcele sua inscrição em até 6 vezes no cartão (conforme condições da operadora) ou à vista via Pix!</p>
+              <p class="text-xs text-orange-400 font-bold mb-4">Parcele sua inscrição em até 6 vezes no cartão (conforme condições da operadora) ou à vista via Pix!</p>
+              <div class="text-[11px] text-gray-400 bg-white/5 border border-white/10 px-3 py-2 rounded-xl mb-6 text-center max-w-xs leading-normal">
+                ⚠️ <strong class="text-white">Importante:</strong> Em caso de desistência, não realizamos a devolução do dinheiro.
+              </div>
               <button onclick="navigateTo('registration')" class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-white hover:scale-105 active:scale-95 transition-all shadow-lg shadow-orange-500/20">Quero me inscrever</button>
             </div>
           </div>
@@ -338,7 +341,19 @@
           <p class="text-sm text-gray-400">A equipe da Juventude Convictos está sempre à sua disposição para tirar dúvidas, realizar credenciamento de lideranças e processar pagamentos.</p>
           <div class="space-y-4 text-sm text-gray-300">
             <div class="flex items-center gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-orange-500"></i> <span>Igreja do Evangelho Quadrangular - Inhoaíba (RJ)</span></div>
-            <div class="flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-orange-500"></i> <span>(21) 98398-6623 / (21) 99293-9093 (Secretaria Convictos)</span></div>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+              <div class="flex items-center gap-3">
+                <i data-lucide="phone" class="w-5 h-5 text-orange-500"></i>
+                <span>(21) 98398-6623</span>
+              </div>
+              <span class="hidden sm:inline text-gray-600">/</span>
+              <a href="https://wa.me/5521992939093" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 transition-all font-semibold text-xs w-fit">
+                <svg class="w-4 h-4 fill-current text-emerald-400" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.51 1.451 5.414 1.452h.005c5.448 0 9.877-4.426 9.88-9.874.001-2.64-1.018-5.122-2.87-6.977C17.214 1.9 14.73 .88 12.09.88c-5.451 0-9.88 4.425-9.883 9.876-.001 1.98.517 3.915 1.5 5.64l-.999 3.648 3.734-.979zm11.365-7.343c-.31-.155-1.838-.907-2.11-.1-.27.1-.465.75-.57.876-.104.125-.21.14-.52.015-.309-.154-1.309-.483-2.493-1.54-.922-.821-1.545-1.838-1.725-2.148-.18-.31-.02-.477.136-.63.14-.14.31-.36.465-.54.154-.18.206-.31.31-.515.103-.206.05-.386-.025-.54-.077-.155-.7-.1.954-1.61c-.26-.622-.507-.534-.693-.544-.18-.01-.386-.01-.59-.01-.206 0-.541.077-.824.386-.284.31-1.082 1.056-1.082 2.575 0 1.52 1.103 2.99 1.257 3.196.155.206 2.17 3.312 5.258 4.643.734.316 1.307.505 1.753.647.739.235 1.412.202 1.944.122.593-.09 1.838-.75 2.1-1.44.262-.69.262-1.28.185-1.402-.078-.125-.284-.206-.593-.36z"/>
+                </svg>
+                <span>(21) 99293-9093 <span class="text-[10px] opacity-80">(Zap Secretaria)</span></span>
+              </a>
+            </div>
             <div class="flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-orange-500"></i> <span>contato@convictos.com.br</span></div>
           </div>
         </div>
@@ -450,7 +465,8 @@
     const FAQs = [
       { question: 'Quem pode participar?', answer: 'Jovens e adolescentes a partir de 12 anos.' },
       { question: 'O que levar na mala?', answer: 'Bíblia, roupas de gincana (que possam sujar), roupas de banho (compostura cristã), lençol/toalha, repelente e muita disposição!' },
-      { question: 'Como funciona o pagamento?', answer: 'Aceitamos PIX ou Cartão de Crédito (com opção de parcelamento em até 6x no cartão, conforme condições da operadora) diretamente no portal.' }
+      { question: 'Como funciona o pagamento?', answer: 'Aceitamos PIX ou Cartão de Crédito (com opção de parcelamento em até 6x no cartão, conforme condições da operadora) diretamente no portal.' },
+      { question: 'Em caso de desistência, o valor é devolvido?', answer: 'Não. Em caso de desistência do participante, não realizamos a devolução do dinheiro devido aos custos e compromissos logísticos, hospedagem e alimentação contratados antecipadamente com os fornecedores para o evento.' }
     ];
 
     // Local DB State variables
@@ -470,6 +486,12 @@
     function formatEmbedUrl(url) {
       if (!url) return '';
       url = url.trim();
+
+      // Google Drive file preview/embed formatting
+      const driveMatch = url.match(/(?:drive|docs)\.google\.com\/(?:file\/d\/|open\?id=)([^"&?\/ ]+)/i);
+      if (driveMatch) {
+        return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+      }
 
       // Kapwing URL formatting
       const kapwingMatch = url.match(/kapwing\.com\/(?:videos|w|e)\/([a-zA-Z0-9]+)/i);
@@ -522,8 +544,12 @@
         promoVideo.endsWith('.mp4') || 
         promoVideo.endsWith('.webm') || 
         promoVideo.endsWith('.ogg') ||
-        promoVideo.includes('video.mp4') ||
-        (!promoVideo.includes('youtube.com') && !promoVideo.includes('kapwing.com') && !promoVideo.includes('embed'))
+        promoVideo.includes('video.mp4')
+      ) && (
+        !promoVideo.includes('youtube.com') && 
+        !promoVideo.includes('kapwing.com') && 
+        !promoVideo.includes('drive.google.com') && 
+        !promoVideo.includes('docs.google.com')
       );
       
       if (isDirectVideo) {
@@ -594,14 +620,14 @@
           }
         }
         const currentVid = localStorage.getItem(VIDEO_KEY);
-        if (!currentVid || currentVid === 'https://www.youtube.com/embed/WJ69r9sHn8I' || currentVid === 'https://www.kapwing.com/e/6a456e967d73370f680d63c9') {
-          localStorage.setItem(VIDEO_KEY, 'https://www.kapwing.com/e/6a4699b2bd122412f3741bd9');
+        if (!currentVid || currentVid === 'https://www.youtube.com/embed/WJ69r9sHn8I' || currentVid === 'https://www.kapwing.com/e/6a456e967d73370f680d63c9' || currentVid === 'https://www.kapwing.com/e/6a4699b2bd122412f3741bd9') {
+          localStorage.setItem(VIDEO_KEY, 'https://drive.google.com/file/d/10kpkcaImUN0yeU5utOcPWTljH6wkpmf2/view?usp=sharing');
         }
 
         registrations = JSON.parse(localStorage.getItem(REGISTRATIONS_KEY)) || INITIAL_REGISTRATIONS;
         announcements = JSON.parse(localStorage.getItem(ANNOUNCEMENTS_KEY)) || INITIAL_ANNOUNCEMENTS;
         galleryImages = JSON.parse(localStorage.getItem(GALLERY_KEY)) || INITIAL_GALLERY;
-        promoVideo = formatEmbedUrl(localStorage.getItem(VIDEO_KEY) || 'https://www.kapwing.com/e/6a4699b2bd122412f3741bd9');
+        promoVideo = formatEmbedUrl(localStorage.getItem(VIDEO_KEY) || 'https://drive.google.com/file/d/10kpkcaImUN0yeU5utOcPWTljH6wkpmf2/view?usp=sharing');
         
         const userStr = localStorage.getItem(CURRENT_USER_KEY);
         if (userStr && userStr !== 'undefined' && userStr !== 'null') {
@@ -614,7 +640,7 @@
         registrations = INITIAL_REGISTRATIONS;
         announcements = INITIAL_ANNOUNCEMENTS;
         galleryImages = INITIAL_GALLERY;
-        promoVideo = 'https://www.kapwing.com/e/6a4699b2bd122412f3741bd9';
+        promoVideo = formatEmbedUrl('https://drive.google.com/file/d/10kpkcaImUN0yeU5utOcPWTljH6wkpmf2/view?usp=sharing');
         currentUser = null;
       }
 
@@ -1071,7 +1097,7 @@
                   <div class="flex items-start gap-3">
                     <input type="checkbox" id="reg-agree" required class="mt-1 w-4 h-4 rounded text-orange-500 bg-black/40 border-white/15 focus:ring-orange-500 cursor-pointer">
                     <label for="reg-agree" class="text-xs text-gray-400 cursor-pointer select-none leading-relaxed">
-                      Estou ciente e aceito todas as regras do <strong class="text-white font-bold">Summer Camp 2027</strong>. Comprometo-me a obedecer aos horários, cooperar com a gincana de tribos, zelar pelas acomodações e participar de todas as ministrações.
+                      Estou ciente e aceito todas as regras do <strong class="text-white font-bold">Summer Camp 2027</strong>. Comprometo-me a obedecer aos horários, cooperar com a gincana de tribos, zelar pelas acomodações, participar de todas as ministrações, e declaro estar ciente de que, <strong class="text-orange-400 font-bold">em caso de desistência, não realizamos a devolução do dinheiro</strong>.
                     </label>
                   </div>
                 </div>
