@@ -37,18 +37,13 @@
     .video-container {
       position: relative;
       width: 100%;
-      height: 60vh;
+      aspect-ratio: 16 / 9;
       overflow: hidden;
-      border-radius: 20px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       background-color: #050b18;
       animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @media (min-width: 768px) {
-      .video-container {
-        height: 80vh;
-      }
     }
     .video-container video, .video-container iframe {
       display: block;
@@ -227,18 +222,22 @@
     </section>
 
     <!-- GALLERY -->
-    <section id="gallery" class="py-24 bg-[#081021]">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="gallery" class="py-24 bg-[#081021] overflow-x-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <div class="text-center max-w-3xl mx-auto space-y-3">
           <span class="text-xs font-mono font-bold tracking-widest text-orange-400 uppercase bg-orange-500/10 px-3.5 py-1.5 rounded-full">Galeria de Mídia</span>
           <h2 class="text-4xl font-extrabold font-display text-white">Sinta a Energia do Camp</h2>
         </div>
+      </div>
 
-        <!-- Video Player -->
-        <div id="promo-video-container" class="video-container shadow-2xl border border-white/10 bg-[#050b18]">
+      <!-- Video Player (Cinematic Full Screen Width) -->
+      <div class="w-full mb-16">
+        <div id="promo-video-container" class="video-container shadow-2xl bg-[#050b18] w-full">
           <!-- Dynamic video or iframe will be inserted here -->
         </div>
+      </div>
 
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <!-- Category Filters -->
         <div class="flex flex-wrap items-center justify-center gap-2 pt-4" id="gallery-filters">
           <!-- Will be dynamically filled by JS -->
